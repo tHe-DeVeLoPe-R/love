@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#120108">
+  <title>For My Forever Queen ❤️</title>
+  
+  <!-- Romantic Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Ambient Sparkles & Glow Backdrop -->
+  <div class="glow-orb orb-1"></div>
+  <div class="glow-orb orb-2"></div>
+  <div class="glow-orb orb-3"></div>
+
+  <!-- Dynamic Emoji Cannon Canvas / Container -->
+  <div id="emoji-container" class="emoji-container" aria-hidden="true"></div>
+
+  <!-- Main Mobile-First Wrapper -->
+  <main class="mobile-viewport">
+    
+    <!-- Hero / Opening Card -->
+    <section id="opening-card" class="opening-card">
+      
+      <!-- Top Romantic Greeting Badge -->
+      <div class="badge-wrapper">
+        <span class="pulse-ring"></span>
+        <span class="greeting-badge" id="greeting-badge">✨ My Heart, My Soul ✨</span>
+      </div>
+
+      <!-- Amazing Love Hook Title -->
+      <h1 class="love-title" id="love-title">
+        The Most Beautiful Woman in the Universe
+      </h1>
+      
+      <p class="love-subtitle" id="love-subtitle">
+        Every heartbeat of mine whispers your name. Welcome to your personal world of love, passion, and adoration.
+      </p>
+
+      <!-- Romantic Image Frame with Responsive Fallbacks -->
+      <div class="photo-frame-container" id="photo-container">
+        <div class="frame-sparkle sparkle-top">✨</div>
+        <div class="frame-sparkle sparkle-bottom">💖</div>
+        <div class="photo-frame" id="photo-frame">
+          <!-- Image loaded dynamically with smooth loading state -->
+          <div class="img-skeleton" id="img-skeleton">
+            <span class="heart-loader">❤️</span>
+          </div>
+          <img 
+            id="queen-photo" 
+            src="" 
+            alt="My Gorgeous Wife" 
+            loading="eager"
+            class="queen-photo hidden"
+          >
+          <div class="photo-overlay"></div>
+        </div>
+      </div>
+
+      <!-- Action Button Section -->
+      <div class="action-wrapper">
+        <button id="start-btn" class="start-btn" type="button">
+          <span class="btn-glow"></span>
+          <span class="btn-text">
+            <span class="btn-icon">💌</span> Start Receiving Love
+          </span>
+          <span class="btn-hearts">💋✨</span>
+        </button>
+
+        <p class="tap-hint">Tap above to unlock your daily romance & hot quotes</p>
+      </div>
+
+    </section>
+
+    <!-- Placeholder for Next Stage (To be activated when clicking Start) -->
+    <section id="portal-card" class="portal-card hidden">
+      <div class="celebration-burst" id="celebration-burst"></div>
+      <div class="portal-header">
+        <span class="portal-tag">💖 Daily Passion Sanctuary</span>
+        <h2 id="portal-title">Connecting to your heart...</h2>
+        <p id="portal-desc">Getting ready to reveal your daily 3 hot and romantic quotes.</p>
+      </div>
+      <div class="portal-actions">
+        <button id="back-to-opening" class="secondary-btn" type="button">
+          ↺ Refresh Surprise
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
