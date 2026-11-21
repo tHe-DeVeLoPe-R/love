@@ -4,17 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="theme-color" content="#120108">
-  <title>For My Forever Queen ❤️</title>
+  <title>Aneeza & Saad ❤️ Daily Love Sanctuary</title>
   
   <!-- Romantic Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Ambient Sparkles & Glow Backdrop -->
+  <!-- Ambient Backdrop Glows -->
   <div class="glow-orb orb-1"></div>
   <div class="glow-orb orb-2"></div>
   <div class="glow-orb orb-3"></div>
@@ -22,40 +22,39 @@
   <!-- Dynamic Emoji Cannon Canvas / Container -->
   <div id="emoji-container" class="emoji-container" aria-hidden="true"></div>
 
-  <!-- Main Mobile-First Wrapper -->
+  <!-- Main Mobile-First Viewport Container -->
   <main class="mobile-viewport">
     
-    <!-- Hero / Opening Card -->
-    <section id="opening-card" class="opening-card">
+    <!-- ============================================== -->
+    <!-- SCREEN 1: WELCOME & HER RANDOM PHOTO           -->
+    <!-- ============================================== -->
+    <section id="opening-card" class="interactive-card">
       
-      <!-- Top Romantic Greeting Badge -->
       <div class="badge-wrapper">
         <span class="pulse-ring"></span>
-        <span class="greeting-badge" id="greeting-badge">✨ My Heart, My Soul ✨</span>
+        <span class="greeting-badge" id="greeting-badge">✨ Saad's Forever Queen ✨</span>
       </div>
 
-      <!-- Amazing Love Hook Title -->
       <h1 class="love-title" id="love-title">
-        The Most Beautiful Woman in the Universe
+        Aneeza, The Most Beautiful Woman in the Universe
       </h1>
       
       <p class="love-subtitle" id="love-subtitle">
-        Every heartbeat of mine whispers your name. Welcome to your personal world of love, passion, and adoration.
+        Every heartbeat of Saad whispers your name. Welcome to your daily sanctuary of romance, passion, and sweet desires.
       </p>
 
-      <!-- Romantic Image Frame with Responsive Fallbacks -->
+      <!-- Romantic Image Frame -->
       <div class="photo-frame-container" id="photo-container">
         <div class="frame-sparkle sparkle-top">✨</div>
         <div class="frame-sparkle sparkle-bottom">💖</div>
         <div class="photo-frame" id="photo-frame">
-          <!-- Image loaded dynamically with smooth loading state -->
           <div class="img-skeleton" id="img-skeleton">
             <span class="heart-loader">❤️</span>
           </div>
           <img 
             id="queen-photo" 
             src="" 
-            alt="My Gorgeous Wife" 
+            alt="My Gorgeous Wife Aneeza" 
             loading="eager"
             class="queen-photo hidden"
           >
@@ -63,7 +62,7 @@
         </div>
       </div>
 
-      <!-- Action Button Section -->
+      <!-- Action Button -->
       <div class="action-wrapper">
         <button id="start-btn" class="start-btn" type="button">
           <span class="btn-glow"></span>
@@ -72,28 +71,201 @@
           </span>
           <span class="btn-hearts">💋✨</span>
         </button>
-
-        <p class="tap-hint">Tap above to unlock your daily romance & hot quotes</p>
+        <p class="tap-hint">Tap to unlock Saad's daily desires & romantic quotes</p>
       </div>
 
     </section>
 
-    <!-- Placeholder for Next Stage (To be activated when clicking Start) -->
-    <section id="portal-card" class="portal-card hidden">
-      <div class="celebration-burst" id="celebration-burst"></div>
-      <div class="portal-header">
-        <span class="portal-tag">💖 Daily Passion Sanctuary</span>
-        <h2 id="portal-title">Connecting to your heart...</h2>
-        <p id="portal-desc">Getting ready to reveal your daily 3 hot and romantic quotes.</p>
+    <!-- ============================================== -->
+    <!-- SCREEN 2: MAY 21 SPECIAL BIRTHDAY SCREEN       -->
+    <!-- ============================================== -->
+    <section id="birthday-card" class="interactive-card hidden">
+      <div class="bday-crown" style="font-size: 3rem; margin-bottom: 8px;">👑🎂💖</div>
+      <div class="stage-badge" style="background: rgba(245, 158, 11, 0.2); border-color: rgba(245, 158, 11, 0.5); color: #fcd34d;">
+        ✨ Special May 21st Birthday Edition ✨
       </div>
-      <div class="portal-actions">
-        <button id="back-to-opening" class="secondary-btn" type="button">
-          ↺ Refresh Surprise
+      <h1 class="love-title" style="font-size: 1.8rem; margin-top: 6px;">
+        Happy Birthday, My Queen Aneeza!
+      </h1>
+      <p class="love-subtitle">
+        Today is your special day, my darling. There are no tests or questions today—only pure adoration, deep worship, and your exclusive once-a-year Birthday Love Quote from Saad!
+      </p>
+
+      <div class="photo-frame-container" style="width: 210px; height: 260px; margin-bottom: 20px;">
+        <div class="photo-frame anim-glow">
+          <img id="bday-photo" src="" alt="Birthday Queen" class="queen-photo">
+          <div class="photo-overlay"></div>
+        </div>
+      </div>
+
+      <div class="action-wrapper">
+        <button id="claim-bday-quote-btn" class="start-btn" type="button">
+          <span class="btn-glow"></span>
+          <span class="btn-text">
+            <span>🎁</span> Claim Your Birthday Love Quote
+          </span>
+          <span class="btn-hearts">🎂💋</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- SCREEN 3: INTERACTIVE DESIRE WORKFLOW (NORMAL) -->
+    <!-- ============================================== -->
+    <section id="game-card" class="interactive-card hidden">
+      
+      <!-- Progress Bar (Quote 1, 2, 3) -->
+      <div class="game-progress-bar">
+        <div class="progress-step active" id="prog-step-1">
+          <span class="dot"></span>
+          <span class="lbl">Quote 1</span>
+        </div>
+        <div class="progress-line" id="prog-line-1"></div>
+        <div class="progress-step" id="prog-step-2">
+          <span class="dot"></span>
+          <span class="lbl">Quote 2</span>
+        </div>
+        <div class="progress-line" id="prog-line-2"></div>
+        <div class="progress-step" id="prog-step-3">
+          <span class="dot"></span>
+          <span class="lbl">Quote 3</span>
+        </div>
+      </div>
+
+      <!-- STAGE 1: Husband's Question + Reverse Question -->
+      <div id="stage-1-panel" class="game-stage">
+        <div class="stage-badge">🔥 Stage 1: The Desire Test</div>
+        <h2 class="stage-question" id="q1-text">Where does Saad love to kiss you the most on your body?</h2>
+        <p class="stage-subtitle">Select the answer you think Saad chose for his queen:</p>
+        
+        <div class="options-grid" id="q1-options"></div>
+
+        <!-- Reverse Question -->
+        <div id="reverse-q-box" class="reverse-box hidden">
+          <div class="divider-heart"><span>💋</span></div>
+          <h3 class="reverse-question" id="rev-q-text">And where do you crave for Saad to kiss you the most right now?</h3>
+          <div class="options-grid" id="rev-options"></div>
+        </div>
+      </div>
+
+      <!-- SCANNING OVERLAY / LOADER -->
+      <div id="scanner-panel" class="scanner-panel hidden">
+        <div class="scanner-anim">
+          <div class="radar-circle"></div>
+          <div class="radar-heart">❤️‍🔥</div>
+        </div>
+        <h3 class="scanner-title">Scanning Saad's Desire Profile...</h3>
+        <p class="scanner-desc">Comparing Aneeza's heart rhythm with her husband's secret thoughts...</p>
+        <div class="scan-progress-box">
+          <div class="scan-progress-fill" id="scan-bar"></div>
+        </div>
+      </div>
+
+      <!-- SCAN RESULT & VERDICT -->
+      <div id="verdict-panel" class="verdict-panel hidden">
+        <div class="verdict-icon" id="verdict-icon">🎉</div>
+        <h3 class="verdict-title" id="verdict-title">Match Found!</h3>
+        <p class="verdict-msg" id="verdict-msg"></p>
+        
+        <button id="show-quote-btn" class="continue-btn" type="button">
+          Read Quote 1 of 3 ✨
+        </button>
+      </div>
+
+      <!-- STAGE 2: Romantic Sentence Challenge for Saad -->
+      <div id="stage-2-panel" class="game-stage hidden">
+        <div class="stage-badge">💌 Stage 2: Whisper to Saad</div>
+        <h2 class="stage-question" id="s2-prompt">Whisper 1 hot and romantic sentence for Saad:</h2>
+        <p class="stage-subtitle">Send your sweet thoughts to unlock Quote 2:</p>
+        
+        <div class="input-container">
+          <textarea id="s2-input" class="romantic-textarea" rows="3" placeholder="Write your sweet words for Saad here..."></textarea>
+          <div class="char-count" id="s2-counter">Minimum 4 words required ❤️</div>
+        </div>
+
+        <button id="submit-s2-btn" class="continue-btn" type="button">
+          Send to Saad & Unlock Quote 2 💋
+        </button>
+      </div>
+
+      <!-- STAGE 3: Final Touch / Kiss Intensity Question -->
+      <div id="stage-3-panel" class="game-stage hidden">
+        <div class="stage-badge">❤️‍🔥 Stage 3: The Grand Desire</div>
+        <h2 class="stage-question" id="s3-question">How intensely do you want Saad to hold and touch you tonight?</h2>
+        <p class="stage-subtitle">Choose from your heart to unveil your final daily quote:</p>
+        
+        <div class="options-grid" id="s3-options"></div>
+      </div>
+
+      <!-- QUOTE CARD DISPLAY -->
+      <div id="quote-display-panel" class="quote-display-panel hidden">
+        <div class="quote-header">
+          <span class="quote-number-tag" id="quote-number-tag">Quote 1 of 3</span>
+          <span class="quote-hearts">💖✨</span>
+        </div>
+        
+        <div id="bday-badge" class="bday-badge hidden">
+          🎂 Special May 21st Birthday Love Edition 🎂
+        </div>
+
+        <div class="quote-content-box">
+          <div class="quote-mark open">“</div>
+          <p class="quote-body" id="quote-body-text">Loading your romantic quote...</p>
+          <div class="quote-mark close">”</div>
+        </div>
+
+        <div class="quote-actions" id="quote-actions">
+          <button id="next-stage-btn" class="continue-btn" type="button">
+            Unlock Next Quote 💌
+          </button>
+          
+          <button id="logout-btn" class="logout-btn" type="button">
+            I'm Satisfied For Today (Exit Sanctuary) 🌙
+          </button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ============================================== -->
+    <!-- SCREEN 4: LOGOUT / GOODBYE SCREEN              -->
+    <!-- ============================================== -->
+    <section id="goodbye-card" class="interactive-card hidden">
+      <div class="goodbye-heart">🥰❤️</div>
+      <h2 class="goodbye-title">Saad Loves You Endlessly, Aneeza!</h2>
+      <p class="goodbye-text" id="goodbye-text">
+        Every quote was written from the depths of Saad's heart for his queen. Come back tomorrow for 3 brand-new surprises and intimate desires!
+      </p>
+      
+      <div class="goodbye-image-frame">
+        <img id="goodbye-photo" src="" alt="Aneeza" class="queen-photo">
+      </div>
+
+      <div class="action-wrapper">
+        <button id="reopen-portal-btn" class="secondary-btn" type="button">
+          ↺ Re-open Today's Portal
         </button>
       </div>
     </section>
 
   </main>
+
+  <!-- SAAD'S SECRET REPLIES MODAL (Viewable by tapping Saad's badge or typing secret code) -->
+  <div id="saad-modal" class="saad-modal hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>💌 Aneeza's Secret Whispers & Answers</h3>
+        <button id="close-modal-btn" class="modal-close">&times;</button>
+      </div>
+      <div class="modal-actions-bar">
+        <button id="export-replies-btn" class="modal-btn">📥 Download replies.json</button>
+        <button id="clear-replies-btn" class="modal-btn danger">🗑️ Clear History</button>
+      </div>
+      <div id="modal-replies-list" class="modal-replies-list">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </div>
 
   <script src="app.js"></script>
 </body>

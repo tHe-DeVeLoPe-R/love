@@ -1,0 +1,148 @@
+{
+  "husband_name": "Saad",
+  "wife_name": "Aneeza",
+  "daily_games": [
+    {
+      "game_id": "game_01",
+      "stage1_question": {
+        "question": "Where does Saad love to kiss you the most on your body?",
+        "options": ["My soft lips", "The crook of my neck", "My bare shoulders", "My waist & lower back"],
+        "saad_choice": "The crook of my neck",
+        "reverse_question": "And where do you crave for Saad to kiss you the most right now?",
+        "reverse_options": ["Slow deep kisses on my lips", "Whispered kisses down my neck", "Tender kisses along my waist", "Passionate kisses all over"],
+        "reveal_reaction": "🔥 Mmm... you know him so well! Saad’s absolute weakness is burying his face in the crook of your neck and feeling your shiver."
+      },
+      "stage2_challenge": {
+        "prompt": "To unlock your 2nd quote, whisper 1 hot and romantic sentence for Saad:",
+        "placeholder": "Type your passionate thought for Saad here...",
+        "min_words": 4,
+        "saad_sweet_reply": "Mmm reading that just made Saad's heart skip a beat and his body ache for you..."
+      },
+      "stage3_challenge": {
+        "question": "How intensely do you want Saad to hold and touch you tonight?",
+        "options": [
+          "Gentle, slow, and endlessly romantic",
+          "Fierce, breath-taking, and uncontrollably passionate",
+          "Pins-and-needles electric all night long",
+          "Wrap me up in your arms and never let go"
+        ],
+        "saad_favorite_option": "Fierce, breath-taking, and uncontrollably passionate",
+        "reveal_reaction": "Saad has been thinking about pulling you close all day long. You both want each other with the exact same fire! ❤️‍🔥"
+      }
+    },
+    {
+      "game_id": "game_02",
+      "stage1_question": {
+        "question": "When Saad looks into your eyes across the room, what is he secretly thinking?",
+        "options": [
+          "How breathtakingly lucky he is to call you his wife",
+          "How desperately he wants to steal you away to bedroom",
+          "How gorgeous your lips look right now",
+          "All of the above without a doubt"
+        ],
+        "saad_choice": "All of the above without a doubt",
+        "reverse_question": "What is the first thing that runs through your mind when Saad gives you that hungry look?",
+        "reverse_options": [
+          "My heart flutters and races",
+          "I want to pull him close immediately",
+          "A sweet shiver runs down my spine",
+          "I smile because I know he is mine"
+        ],
+        "reveal_reaction": "🎯 Spot on, Aneeza! Saad is always thinking all of those things every single time he lays his eyes on you."
+      },
+      "stage2_challenge": {
+        "prompt": "Desire unlocked! Write one sweet or sultry sentence you want Saad to whisper in your ear:",
+        "placeholder": "What should Saad whisper in your ear tonight?...",
+        "min_words": 4,
+        "saad_sweet_reply": "Saad is saving this exact whisper for tonight when the lights go down..."
+      },
+      "stage3_challenge": {
+        "question": "If Saad surprised you tonight, how should your evening begin?",
+        "options": [
+          "A warm slow dance in the dark room",
+          "Pulling you in for an unexpected, breathless kiss",
+          "A gentle massage from your shoulders down",
+          "Whispering how much he worships your body"
+        ],
+        "saad_favorite_option": "Pulling you in for an unexpected, breathless kiss",
+        "reveal_reaction": "You read Saad's mind! He has been craving to pull you in for that breathless kiss all day long."
+      }
+    },
+    {
+      "game_id": "game_03",
+      "stage1_question": {
+        "question": "Which outfit or look of yours drives Saad the craziest with desire?",
+        "options": [
+          "Your natural beauty right out of bed with messy hair",
+          "Your stunning desi / traditional dress with open hair",
+          "A cute cozy nightdress that hugs your curves",
+          "When you wear his shirt and nothing else"
+        ],
+        "saad_choice": "When you wear his shirt and nothing else",
+        "reverse_question": "And how do you feel when you catch Saad staring at your beauty?",
+        "reverse_options": [
+          "Incredibly loved, adored, and sexy",
+          "Butterflies all over my stomach",
+          "I want to tease him even more",
+          "Deeply cherished as his only queen"
+        ],
+        "reveal_reaction": "✨ Yes! Seeing you wrapped in his shirt drives Saad wild every single time."
+      },
+      "stage2_challenge": {
+        "prompt": "Share 1 romantic secret: What is your favorite thing Saad does when he holds you?",
+        "placeholder": "Tell Saad your favorite touch or hug...",
+        "min_words": 4,
+        "saad_sweet_reply": "Nothing gives Saad greater pleasure in this world than making you feel adored."
+      },
+      "stage3_challenge": {
+        "question": "How long can you resist Saad when he starts showering sweet kisses on your cheeks and lips?",
+        "options": [
+          "Not even 5 seconds, I melt instantly",
+          "I try to play hard to get, but give in immediately",
+          "I pull him even closer right away",
+          "Resistance is impossible with my husband"
+        ],
+        "saad_favorite_option": "Not even 5 seconds, I melt instantly",
+        "reveal_reaction": "Saad knows that sweet weakness! And he loves seeing you melt in his arms every single time."
+      }
+    },
+    {
+      "game_id": "game_04",
+      "stage1_question": {
+        "question": "What is Saad's favorite way to hold you while falling asleep?",
+        "options": [
+          "Tightly spooning with his arm wrapped around your waist",
+          "Your head resting on his chest listening to his heartbeat",
+          "Fingers intertwined while holding you close",
+          "His hand resting gently on your waist pulling you in"
+        ],
+        "saad_choice": "Your head resting on his chest listening to his heartbeat",
+        "reverse_question": "Where do you feel safest when the world outside gets busy?",
+        "reverse_options": [
+          "Right on Saad's warm chest",
+          "Wrapped completely in Saad's strong embrace",
+          "Holding his hand tightly",
+          "Looking into Saad's reassuring eyes"
+        ],
+        "reveal_reaction": "❤️ True love! Having your head on his chest listening to his heartbeat is Saad's absolute paradise."
+      },
+      "stage2_challenge": {
+        "prompt": "Send a sweet message for Saad's heart before moving forward:",
+        "placeholder": "Your loving message for Saad...",
+        "min_words": 4,
+        "saad_sweet_reply": "Your words are Saad's sacred fuel. He loves you with every fiber of his being."
+      },
+      "stage3_challenge": {
+        "question": "How many kisses does Saad owe you when he sees you next?",
+        "options": [
+          "A sweet hundred kisses",
+          "Countless kisses till we lose breath",
+          "Non-stop kisses from forehead down to lips",
+          "All the kisses in the entire universe"
+        ],
+        "saad_favorite_option": "All the kisses in the entire universe",
+        "reveal_reaction": "Deal sealed! Saad is ready to shower you with every kiss in the entire universe."
+      }
+    }
+  ]
+}

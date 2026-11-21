@@ -7,10 +7,11 @@
   --bg-dark: #0d0107;
   --bg-gradient: radial-gradient(circle at 50% 20%, #2a0416 0%, #15010a 50%, #070004 100%);
   --rose-primary: #ff2a70;
+  --rose-secondary: #e11d48;
   --rose-glow: rgba(255, 42, 112, 0.45);
   --gold-accent: #fcd34d;
   --gold-glow: rgba(252, 211, 77, 0.35);
-  --glass-bg: rgba(255, 255, 255, 0.06);
+  --glass-bg: rgba(22, 4, 14, 0.78);
   --glass-border: rgba(255, 255, 255, 0.14);
   --glass-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
   --text-main: #fff5f8;
@@ -120,7 +121,6 @@ html, body {
   }
 }
 
-/* Burst Explosion Emojis */
 .burst-emoji {
   position: absolute;
   user-select: none;
@@ -152,22 +152,22 @@ html, body {
   max-width: 440px;
   min-height: 100vh;
   margin: 0 auto;
-  padding: 24px 20px calc(24px + env(safe-area-inset-bottom, 20px));
+  padding: 20px 18px calc(24px + env(safe-area-inset-bottom, 20px));
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-/* Glassmorphism Card */
-.opening-card, .portal-card {
+/* Glassmorphism Unified Interactive Card */
+.interactive-card {
   width: 100%;
-  background: rgba(22, 4, 14, 0.72);
+  background: var(--glass-bg);
   border: 1px solid var(--glass-border);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
   border-radius: 32px;
-  padding: 30px 22px;
+  padding: 26px 20px;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8),
               0 0 30px -5px var(--rose-glow),
               inset 0 1px 1px rgba(255, 255, 255, 0.2);
@@ -176,14 +176,14 @@ html, body {
   align-items: center;
   text-align: center;
   position: relative;
-  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-  animation: cardEntry 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: cardEntry 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 @keyframes cardEntry {
   from {
     opacity: 0;
-    transform: translateY(30px) scale(0.96);
+    transform: translateY(24px) scale(0.97);
   }
   to {
     opacity: 1;
@@ -191,28 +191,37 @@ html, body {
   }
 }
 
-/* Romantic Greeting Badge */
+/* Greeting Badge */
 .badge-wrapper {
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
-.greeting-badge {
+.greeting-badge, .stage-badge {
   font-family: var(--font-sans);
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 700;
-  letter-spacing: 1.5px;
+  letter-spacing: 1.4px;
   text-transform: uppercase;
   color: #ffe4e6;
   background: linear-gradient(135deg, rgba(255, 42, 112, 0.3), rgba(244, 63, 94, 0.15));
   border: 1px solid rgba(255, 140, 175, 0.4);
-  padding: 6px 16px;
+  padding: 6px 14px;
   border-radius: 999px;
   box-shadow: 0 4px 15px rgba(255, 42, 112, 0.25);
   backdrop-filter: blur(8px);
+}
+
+.stage-badge {
+  color: var(--gold-accent);
+  background: rgba(252, 211, 77, 0.12);
+  border-color: rgba(252, 211, 77, 0.35);
+  box-shadow: 0 4px 15px rgba(252, 211, 77, 0.2);
+  margin-bottom: 12px;
+  display: inline-block;
 }
 
 .pulse-ring {
@@ -230,36 +239,33 @@ html, body {
   100% { transform: scale(1.3); opacity: 0; }
 }
 
-/* Romantic Headers */
+/* Titles */
 .love-title {
   font-family: var(--font-serif);
-  font-size: 1.65rem;
+  font-size: 1.6rem;
   line-height: 1.28;
   font-weight: 700;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   background: linear-gradient(135deg, #ffffff 10%, #ffd0e0 55%, #fbb6ce 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 0 4px 18px rgba(255, 42, 112, 0.25);
 }
 
 .love-subtitle {
-  font-size: 0.92rem;
+  font-size: 0.88rem;
   line-height: 1.5;
   color: var(--text-muted);
   max-width: 320px;
-  margin-bottom: 22px;
+  margin-bottom: 20px;
   font-weight: 400;
 }
 
-/* ==========================================
-   PHOTO FRAME - NEVER BREAKS & GORGEOUS FIT
-   ========================================== */
+/* Photo Frame Container */
 .photo-frame-container {
   position: relative;
-  width: 240px;
-  height: 290px;
-  margin-bottom: 24px;
+  width: 230px;
+  height: 280px;
+  margin-bottom: 22px;
 }
 
 .frame-sparkle {
@@ -270,16 +276,8 @@ html, body {
   animation: sparkleTwinkle 2.5s ease-in-out infinite alternate;
 }
 
-.sparkle-top {
-  top: -12px;
-  right: -8px;
-}
-
-.sparkle-bottom {
-  bottom: -10px;
-  left: -8px;
-  animation-delay: -1.2s;
-}
+.sparkle-top { top: -12px; right: -8px; }
+.sparkle-bottom { bottom: -10px; left: -8px; animation-delay: -1.2s; }
 
 @keyframes sparkleTwinkle {
   0% { transform: scale(0.85) rotate(0deg); opacity: 0.7; }
@@ -290,73 +288,53 @@ html, body {
   position: relative;
   width: 100%;
   height: 100%;
-  border-radius: 28px;
+  border-radius: 26px;
   padding: 6px;
   background: linear-gradient(145deg, rgba(255, 140, 180, 0.6), rgba(255, 42, 112, 0.2), rgba(252, 211, 77, 0.5));
   box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.8),
               0 0 35px 2px var(--rose-glow),
               inset 0 0 15px rgba(255, 255, 255, 0.15);
   overflow: hidden;
-  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: transform 0.5s ease;
 }
 
-/* Dynamic Entrance Animations for Photo Frame */
-.anim-heartbeat {
-  animation: photoHeartbeat 3.2s ease-in-out infinite;
-}
-
-.anim-float {
-  animation: photoFloat 4s ease-in-out infinite alternate;
-}
-
-.anim-glow {
-  animation: photoGlowPulse 2.8s ease-in-out infinite alternate;
-}
+.anim-heartbeat { animation: photoHeartbeat 3.2s ease-in-out infinite; }
+.anim-float { animation: photoFloat 4s ease-in-out infinite alternate; }
+.anim-glow { animation: photoGlowPulse 2.8s ease-in-out infinite alternate; }
 
 @keyframes photoHeartbeat {
   0%, 100% { transform: scale(1); }
-  14% { transform: scale(1.035); }
+  14% { transform: scale(1.03); }
   28% { transform: scale(1); }
-  42% { transform: scale(1.025); }
+  42% { transform: scale(1.02); }
   70% { transform: scale(1); }
 }
 
 @keyframes photoFloat {
   0% { transform: translateY(0px) rotate(-0.5deg); }
-  100% { transform: translateY(-8px) rotate(0.8deg); }
+  100% { transform: translateY(-7px) rotate(0.8deg); }
 }
 
 @keyframes photoGlowPulse {
-  0% {
-    box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.8), 0 0 20px 0px var(--rose-glow);
-  }
-  100% {
-    box-shadow: 0 20px 42px -6px rgba(0, 0, 0, 0.9), 0 0 45px 8px rgba(255, 42, 112, 0.7);
-  }
+  0% { box-shadow: 0 16px 36px -8px rgba(0,0,0,0.8), 0 0 20px 0px var(--rose-glow); }
+  100% { box-shadow: 0 20px 42px -6px rgba(0,0,0,0.9), 0 0 45px 8px rgba(255, 42, 112, 0.7); }
 }
 
-/* Image Element - strictly contained and never breaks */
 .queen-photo {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center 25%;
-  border-radius: 22px;
+  border-radius: 20px;
   display: block;
-  opacity: 1;
-  transition: opacity 0.5s ease, transform 0.6s ease;
 }
 
-.queen-photo.hidden {
-  opacity: 0;
-  position: absolute;
-}
+.queen-photo.hidden { display: none; }
 
-/* Skeleton Loading */
 .img-skeleton {
   width: 100%;
   height: 100%;
-  border-radius: 22px;
+  border-radius: 20px;
   background: linear-gradient(120deg, #240514 25%, #420824 50%, #240514 75%);
   background-size: 200% 100%;
   animation: skeletonShimmer 1.8s infinite linear;
@@ -366,7 +344,7 @@ html, body {
 }
 
 .heart-loader {
-  font-size: 2.2rem;
+  font-size: 2rem;
   animation: pulseOut 1.2s infinite ease-in-out;
 }
 
@@ -378,14 +356,416 @@ html, body {
 .photo-overlay {
   position: absolute;
   inset: 6px;
-  border-radius: 22px;
+  border-radius: 20px;
   background: linear-gradient(to top, rgba(13, 1, 7, 0.45) 0%, transparent 40%, rgba(255, 255, 255, 0.08) 100%);
   pointer-events: none;
 }
 
-/* ==========================================
-   BUTTON & ACTION SECTION
-   ========================================== */
+/* ==================================================
+   PROGRESS BAR
+   ================================================== */
+.game-progress-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 320px;
+  margin-bottom: 20px;
+  padding: 0 10px;
+}
+
+.progress-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.progress-step .dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.4s ease;
+}
+
+.progress-step.active .dot {
+  background: var(--rose-primary);
+  border-color: #ffffff;
+  box-shadow: 0 0 15px var(--rose-primary);
+}
+
+.progress-step.completed .dot {
+  background: #10b981;
+  border-color: #a7f3d0;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.6);
+}
+
+.progress-step .lbl {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.progress-line {
+  flex: 1;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.12);
+  margin: 0 6px 14px 6px;
+  transition: background 0.4s ease;
+}
+
+.progress-line.filled {
+  background: linear-gradient(90deg, var(--rose-primary), #10b981);
+}
+
+/* ==================================================
+   GAME STAGE & QUESTIONS
+   ================================================== */
+.game-stage {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fadeIn 0.4s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.stage-question, .reverse-question {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  line-height: 1.35;
+  color: #ffffff;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.reverse-question {
+  font-size: 1.15rem;
+  color: #ffd4e4;
+}
+
+.stage-subtitle {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.options-grid {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.option-btn {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  padding: 13px 16px;
+  border-radius: 16px;
+  color: #fff0f5;
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: all 0.25s ease;
+}
+
+.option-btn:hover, .option-btn:focus {
+  background: rgba(255, 42, 112, 0.18);
+  border-color: rgba(255, 42, 112, 0.5);
+  transform: translateY(-1px);
+}
+
+.option-btn.selected {
+  background: linear-gradient(135deg, rgba(255, 42, 112, 0.35), rgba(225, 29, 72, 0.25));
+  border-color: var(--rose-primary);
+  box-shadow: 0 0 20px rgba(255, 42, 112, 0.5);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.option-btn.correct {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.35), rgba(5, 150, 105, 0.25));
+  border-color: #10b981;
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+}
+
+.option-btn.lost {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.3), rgba(185, 28, 28, 0.2));
+  border-color: #ef4444;
+}
+
+.reverse-box {
+  width: 100%;
+  margin-top: 20px;
+  animation: fadeIn 0.5s ease;
+}
+
+.divider-heart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.divider-heart span {
+  font-size: 1.5rem;
+  background: rgba(255, 42, 112, 0.2);
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 140, 175, 0.3);
+}
+
+/* ==================================================
+   SCANNING SCREEN
+   ================================================== */
+.scanner-panel {
+  width: 100%;
+  padding: 24px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fadeIn 0.4s ease;
+}
+
+.scanner-anim {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.radar-circle {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px dashed var(--rose-primary);
+  animation: spinRadar 3s linear infinite;
+}
+
+@keyframes spinRadar {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.radar-heart {
+  font-size: 2.4rem;
+  animation: pulseOut 1.2s infinite ease-in-out;
+}
+
+.scanner-title {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  color: #fff0f5;
+  margin-bottom: 6px;
+}
+
+.scanner-desc {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+  max-width: 280px;
+}
+
+.scan-progress-box {
+  width: 100%;
+  max-width: 260px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.scan-progress-fill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--rose-primary), var(--gold-accent));
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+/* ==================================================
+   VERDICT PANEL
+   ================================================== */
+.verdict-panel {
+  width: 100%;
+  padding: 16px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fadeIn 0.4s ease;
+}
+
+.verdict-icon {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.verdict-title {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+.verdict-msg {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: #ffe0ec;
+  background: rgba(255, 42, 112, 0.14);
+  border: 1px solid rgba(255, 42, 112, 0.3);
+  padding: 14px 18px;
+  border-radius: 18px;
+  margin-bottom: 22px;
+}
+
+/* ==================================================
+   STAGE 2 TEXTAREA
+   ================================================== */
+.input-container {
+  width: 100%;
+  margin-bottom: 18px;
+  text-align: left;
+}
+
+.romantic-textarea {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 14px;
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  color: #ffffff;
+  resize: none;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.romantic-textarea:focus {
+  border-color: var(--rose-primary);
+  box-shadow: 0 0 16px rgba(255, 42, 112, 0.4);
+}
+
+.romantic-textarea::placeholder {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.char-count {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+  text-align: right;
+}
+
+/* ==================================================
+   QUOTE DISPLAY PANEL
+   ================================================== */
+.quote-display-panel {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fadeIn 0.5s ease;
+}
+
+.quote-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.quote-number-tag {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gold-accent);
+  background: rgba(252, 211, 77, 0.12);
+  border: 1px solid rgba(252, 211, 77, 0.3);
+  padding: 4px 12px;
+  border-radius: 999px;
+}
+
+.quote-hearts {
+  font-size: 1.1rem;
+}
+
+.bday-badge {
+  width: 100%;
+  background: linear-gradient(135deg, #f59e0b, #ef4444);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.8rem;
+  padding: 6px 12px;
+  border-radius: 12px;
+  margin-bottom: 14px;
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+}
+
+.quote-content-box {
+  position: relative;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 180, 200, 0.2);
+  border-radius: 20px;
+  padding: 22px 18px;
+  margin-bottom: 22px;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.quote-mark {
+  font-family: var(--font-serif);
+  font-size: 2.2rem;
+  color: var(--rose-primary);
+  line-height: 1;
+  opacity: 0.8;
+}
+
+.quote-mark.open { text-align: left; margin-bottom: -10px; }
+.quote-mark.close { text-align: right; margin-top: -6px; }
+
+.quote-body {
+  font-family: var(--font-serif);
+  font-size: 0.98rem;
+  line-height: 1.7;
+  color: #fff5f8;
+  text-align: justify;
+  letter-spacing: 0.2px;
+  font-style: italic;
+}
+
+.quote-actions {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+/* ==================================================
+   BUTTONS & ACTIONS
+   ================================================== */
 .action-wrapper {
   width: 100%;
   display: flex;
@@ -394,23 +774,23 @@ html, body {
   gap: 12px;
 }
 
-.start-btn {
+.start-btn, .continue-btn {
   position: relative;
   width: 100%;
-  max-width: 280px;
+  max-width: 290px;
   padding: 16px 24px;
   border-radius: 999px;
   border: none;
   background: linear-gradient(135deg, #ff2a70 0%, #e11d48 50%, #be123c 100%);
   color: #ffffff;
   font-family: var(--font-sans);
-  font-size: 1.05rem;
+  font-size: 1.02rem;
   font-weight: 700;
   letter-spacing: 0.3px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 8px;
   cursor: pointer;
   box-shadow: 0 10px 25px -4px rgba(255, 42, 112, 0.6),
               0 0 25px 2px rgba(255, 42, 112, 0.3),
@@ -419,9 +799,37 @@ html, body {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.start-btn:active {
+.start-btn:active, .continue-btn:active {
   transform: scale(0.96);
   box-shadow: 0 5px 15px -2px rgba(255, 42, 112, 0.7);
+}
+
+.logout-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffcadb;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.logout-btn:hover, .logout-btn:active {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.secondary-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffe4e6;
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
 }
 
 .btn-glow {
@@ -450,11 +858,6 @@ html, body {
 .btn-hearts {
   font-size: 1.15rem;
   z-index: 2;
-  transition: transform 0.3s ease;
-}
-
-.start-btn:hover .btn-hearts {
-  transform: scale(1.25) rotate(10deg);
 }
 
 .tap-hint {
@@ -464,67 +867,58 @@ html, body {
   opacity: 0.85;
 }
 
-/* Next Step Portal Card (Ready for subsequent steps) */
-.portal-card {
-  margin-top: 10px;
+/* ==================================================
+   GOODBYE SCREEN
+   ================================================== */
+.goodbye-heart {
+  font-size: 3.5rem;
+  margin-bottom: 12px;
+  animation: photoHeartbeat 2.5s infinite;
 }
 
-.portal-tag {
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--gold-accent);
-  margin-bottom: 8px;
-  display: block;
-}
-
-.portal-header h2 {
+.goodbye-title {
   font-family: var(--font-serif);
-  font-size: 1.5rem;
+  font-size: 1.55rem;
   color: #ffffff;
   margin-bottom: 10px;
 }
 
-.portal-header p {
+.goodbye-text {
   font-size: 0.92rem;
+  line-height: 1.6;
   color: var(--text-muted);
-  line-height: 1.5;
+  max-width: 320px;
+  margin-bottom: 22px;
+}
+
+.goodbye-image-frame {
+  width: 170px;
+  height: 210px;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 3px solid rgba(255, 140, 180, 0.4);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.7), 0 0 20px var(--rose-glow);
   margin-bottom: 24px;
-}
-
-.secondary-btn {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #ffe4e6;
-  padding: 12px 24px;
-  border-radius: 999px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s ease, transform 0.2s ease;
-}
-
-.secondary-btn:active {
-  transform: scale(0.96);
-  background: rgba(255, 255, 255, 0.15);
 }
 
 .hidden {
   display: none !important;
 }
 
-/* Smooth Touch Optimizations for Mobile */
+/* Mobile Responsiveness */
 @media (max-width: 380px) {
   .photo-frame-container {
     width: 210px;
-    height: 260px;
+    height: 255px;
   }
   .love-title {
     font-size: 1.45rem;
   }
-  .start-btn {
+  .start-btn, .continue-btn {
     padding: 14px 20px;
     font-size: 0.98rem;
+  }
+  .quote-body {
+    font-size: 0.92rem;
   }
 }
