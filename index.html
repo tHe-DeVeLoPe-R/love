@@ -19,7 +19,7 @@
   <div class="glow-orb orb-2"></div>
   <div class="glow-orb orb-3"></div>
 
-  <!-- Dynamic Emoji Cannon Canvas / Container -->
+  <!-- Dynamic Emoji Cannon Canvas / Container (Permanent on all screens) -->
   <div id="emoji-container" class="emoji-container" aria-hidden="true"></div>
 
   <!-- Main Mobile-First Viewport Container -->
@@ -30,7 +30,7 @@
     <!-- ============================================== -->
     <section id="opening-card" class="interactive-card">
       
-      <div class="badge-wrapper">
+      <div class="badge-wrapper" id="opening-badge-wrapper" title="Tap 3 times to view Saad's admin panel">
         <span class="pulse-ring"></span>
         <span class="greeting-badge" id="greeting-badge">✨ Saad's Forever Queen ✨</span>
       </div>
@@ -197,7 +197,7 @@
         <div class="options-grid" id="s3-options"></div>
       </div>
 
-      <!-- QUOTE CARD DISPLAY -->
+      <!-- QUOTE CARD DISPLAY WITH HER RANDOM PHOTO -->
       <div id="quote-display-panel" class="quote-display-panel hidden">
         <div class="quote-header">
           <span class="quote-number-tag" id="quote-number-tag">Quote 1 of 3</span>
@@ -206,6 +206,14 @@
         
         <div id="bday-badge" class="bday-badge hidden">
           🎂 Special May 21st Birthday Love Edition 🎂
+        </div>
+
+        <!-- NEW: Dedicated Random Photo of Aneeza on the Quote Screen -->
+        <div class="quote-photo-wrapper">
+          <div class="quote-photo-frame anim-glow">
+            <img id="quote-photo" src="" alt="Aneeza My Love" class="queen-photo">
+            <div class="photo-overlay"></div>
+          </div>
         </div>
 
         <div class="quote-content-box">
@@ -250,7 +258,7 @@
 
   </main>
 
-  <!-- SAAD'S SECRET REPLIES MODAL (Viewable by tapping Saad's badge or typing secret code) -->
+  <!-- SAAD'S SECRET REPLIES MODAL -->
   <div id="saad-modal" class="saad-modal hidden">
     <div class="modal-card">
       <div class="modal-header">

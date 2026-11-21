@@ -1,11 +1,11 @@
 // ==========================================================
-// SAAD & ANEEZA - VERCEL COMPATIBLE 100% PURE JAVASCRIPT ENGINE
-// Persistent Client-Side Storage: LocalStorage + Cloud Sync Ready
-// Features:
-// 1. Logs all Aneeza's answers with timestamps to replies.json / storage
-// 2. Marks used quotes so they never repeat across days
-// 3. May 21st Special Birthday Flow (Zero questions, direct unlock)
-// 4. Secret Review Modal: Saad can view & download her answers anytime!
+// SAAD & ANEEZA - INTERACTIVE LOVE SANCTUARY (VERCEL + LOCAL READY)
+// Fixes Applied:
+// 1. Permanent continuous love emoji rain & floating kisses across ALL screens
+// 2. Unlocked quote is guaranteed saved & marked as used in love_used_tracker
+// 3. Her answers strictly saved with full details & timestamp
+// 4. Random photo of Aneeza now displayed on the Quote Screen
+// 5. Secret Admin Trigger: Tap top badge 3 times to inspect/download replies
 // ==========================================================
 
 const HER_IMAGES = [
@@ -52,16 +52,17 @@ const EMOJI_THEMES = [
 const FRAME_ANIMATIONS = ["anim-heartbeat", "anim-float", "anim-glow"];
 
 // Storage Keys
-const STORAGE_USED_QUOTES = "saad_aneeza_used_quotes";
-const STORAGE_REPLIES = "saad_aneeza_replies";
+const STORAGE_USED_QUOTES = "saad_aneeza_used_quotes_v1";
+const STORAGE_REPLIES = "saad_aneeza_replies_v1";
 
-// Global Variables
+// State
 let allQuotes = [];
 let desiresData = null;
 let currentDayGame = null;
 let currentQuoteStep = 1;
 let dailyThreeQuotes = [];
 let isBirthdayToday = false;
+let currentEmojiSet = ["💖", "❤️", "💋", "🔥", "✨", "🌹", "🫦"];
 
 // DOM Elements
 const emojiContainer = document.getElementById("emoji-container");
@@ -78,10 +79,11 @@ const nextStageBtn = document.getElementById("next-stage-btn");
 
 const queenPhoto = document.getElementById("queen-photo");
 const bdayPhoto = document.getElementById("bday-photo");
+const quotePhoto = document.getElementById("quote-photo");
+const goodbyePhoto = document.getElementById("goodbye-photo");
 const imgSkeleton = document.getElementById("img-skeleton");
 const photoFrame = document.getElementById("photo-frame");
-const goodbyePhoto = document.getElementById("goodbye-photo");
-const greetingBadge = document.getElementById("greeting-badge");
+const openingBadgeWrapper = document.getElementById("opening-badge-wrapper");
 
 // Stage Elements
 const stage1Panel = document.getElementById("stage-1-panel");
@@ -132,8 +134,13 @@ function getRandom(array) {
   return array[Math.floor(Math.random() * array.length)];
 }
 
+function getRandomImageUrl() {
+  const file = getRandom(HER_IMAGES);
+  return `images/${encodeURIComponent(file)}`;
+}
+
 // ----------------------------------------------------
-// 1. DATA INITIALIZATION & NO-REPEAT LOGIC (VERCEL READY)
+// 1. DATA INITIALIZATION & NO-REPEAT LOGIC
 // ----------------------------------------------------
 async function initAppData() {
   try {
@@ -151,8 +158,15 @@ async function initAppData() {
   const now = new Date();
   isBirthdayToday = (now.getMonth() === 4 && now.getDate() === 21);
 
+  // Set randomized theme for today
+  const chosenTheme = getRandom(EMOJI_THEMES);
+  currentEmojiSet = chosenTheme.emojis;
+
   selectDailyContent();
   initOpeningScreen();
+
+  // Start continuous emoji rain on every single screen
+  startContinuousEmojiRain();
 }
 
 function getUsedQuoteIds() {
@@ -165,14 +179,16 @@ function getUsedQuoteIds() {
 }
 
 function saveUsedQuoteId(id) {
+  if (!id) return;
   try {
     const used = getUsedQuoteIds();
     if (!used.includes(id)) {
       used.push(id);
       localStorage.setItem(STORAGE_USED_QUOTES, JSON.stringify(used));
+      console.log(`[Quote Saved] ${id} marked as used. Total used: ${used.length}`);
     }
   } catch (e) {
-    console.error("Could not write to localStorage", e);
+    console.error("LocalStorage write error", e);
   }
 }
 
@@ -185,18 +201,17 @@ function selectDailyContent() {
     currentDayGame = desiresData.daily_games[gameIdx];
   }
 
-  // Select 3 Daily Quotes
   if (allQuotes && allQuotes.length > 0) {
     if (isBirthdayToday) {
-      // Direct birthday quote only on May 21st!
+      // Guaranteed once-a-year birthday quote only on May 21st!
       const bdayQuote = allQuotes.find(q => q.quote_id === "birthdayquote") || allQuotes[0];
       dailyThreeQuotes = [bdayQuote];
     } else {
-      // Normal Day: Exclude birthdayquote and exclude already used quotes
+      // Normal Day: Exclude birthdayquote and filter out previously used quotes
       const usedIds = getUsedQuoteIds();
       let eligible = allQuotes.filter(q => q.quote_id !== "birthdayquote" && !usedIds.includes(q.quote_id));
 
-      // Reset pool when all 1,100 quotes have been unlocked
+      // Reset pool when all 1,100 quotes have been read
       if (eligible.length < 3) {
         eligible = allQuotes.filter(q => q.quote_id !== "birthdayquote");
         localStorage.removeItem(STORAGE_USED_QUOTES);
@@ -213,7 +228,7 @@ function selectDailyContent() {
 }
 
 // ----------------------------------------------------
-// 2. SAVING HER REPLIES (LOCALSTORAGE + API FALLBACK)
+// 2. SAVING HER REPLIES (LOCALSTORAGE + API)
 // ----------------------------------------------------
 function logHerReply(stageName, questionText, herReplyText, extraDetails = {}) {
   const now = new Date();
@@ -226,30 +241,29 @@ function logHerReply(stageName, questionText, herReplyText, extraDetails = {}) {
     details: extraDetails
   };
 
-  // 1. Always persist in browser storage on her phone
+  // 1. Guaranteed Save in LocalStorage on device
   try {
     const stored = JSON.parse(localStorage.getItem(STORAGE_REPLIES) || "[]");
     stored.push(newEntry);
     localStorage.setItem(STORAGE_REPLIES, JSON.stringify(stored));
+    console.log(`[Reply Saved]`, newEntry);
   } catch (e) {
-    console.error("Local storage error", e);
+    console.error("LocalStorage reply write error", e);
   }
 
-  // 2. Also send to /api/save_reply in case backend API is wired
+  // 2. Also send to API endpoint (works with Vercel serverless / Python server)
   fetch("/api/save_reply", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(newEntry)
-  }).catch(() => {
-    // Graceful offline/Vercel static fallback
-  });
+  }).catch(() => {});
 }
 
 function markQuoteAsUsed(quoteId) {
   if (!quoteId) return;
   saveUsedQuoteId(quoteId);
 
-  // Send to backend if available
+  // Sync with API
   fetch("/api/mark_used", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -258,44 +272,18 @@ function markQuoteAsUsed(quoteId) {
 }
 
 // ----------------------------------------------------
-// 3. OPENING SCREEN & PHOTO
+// 3. CONTINUOUS LOVE EMOJI RAIN ON ALL SCREENS
 // ----------------------------------------------------
-function initOpeningScreen() {
-  photoFrame.classList.remove(...FRAME_ANIMATIONS);
-  photoFrame.classList.add(getRandom(FRAME_ANIMATIONS));
-
-  const randomPic = getRandom(HER_IMAGES);
-  const picUrl = `images/${encodeURIComponent(randomPic)}`;
-
-  imgSkeleton.classList.remove("hidden");
-  queenPhoto.classList.add("hidden");
-
-  const img = new Image();
-  img.src = picUrl;
-  img.onload = () => {
-    queenPhoto.src = picUrl;
-    bdayPhoto.src = picUrl;
-    goodbyePhoto.src = picUrl;
-    imgSkeleton.classList.add("hidden");
-    queenPhoto.classList.remove("hidden");
-  };
-  img.onerror = () => {
-    const fallback = `images/${encodeURIComponent(HER_IMAGES[0])}`;
-    queenPhoto.src = fallback;
-    bdayPhoto.src = fallback;
-    goodbyePhoto.src = fallback;
-    imgSkeleton.classList.add("hidden");
-    queenPhoto.classList.remove("hidden");
-  };
-
-  triggerEmojiRain();
-}
-
-function triggerEmojiRain() {
-  const theme = getRandom(EMOJI_THEMES);
-  for (let i = 0; i < 35; i++) {
-    createFallingEmoji(theme.emojis, i * 75);
+function startContinuousEmojiRain() {
+  // Initial opening burst
+  for (let i = 0; i < 28; i++) {
+    createFallingEmoji(currentEmojiSet, i * 80);
   }
+
+  // Continuous rain that never stops on all screens
+  setInterval(() => {
+    createFallingEmoji(currentEmojiSet, 0);
+  }, 550);
 }
 
 function createFallingEmoji(emojiSet, delayMs = 0) {
@@ -354,7 +342,38 @@ function triggerBurstAt(x, y) {
 }
 
 // ----------------------------------------------------
-// 4. FLOW ROUTER (MAY 21 VS NORMAL DAYS)
+// 4. OPENING SCREEN & PHOTO
+// ----------------------------------------------------
+function initOpeningScreen() {
+  photoFrame.classList.remove(...FRAME_ANIMATIONS);
+  photoFrame.classList.add(getRandom(FRAME_ANIMATIONS));
+
+  const picUrl = getRandomImageUrl();
+
+  imgSkeleton.classList.remove("hidden");
+  queenPhoto.classList.add("hidden");
+
+  const img = new Image();
+  img.src = picUrl;
+  img.onload = () => {
+    queenPhoto.src = picUrl;
+    bdayPhoto.src = picUrl;
+    goodbyePhoto.src = picUrl;
+    imgSkeleton.classList.add("hidden");
+    queenPhoto.classList.remove("hidden");
+  };
+  img.onerror = () => {
+    const fallback = `images/${encodeURIComponent(HER_IMAGES[0])}`;
+    queenPhoto.src = fallback;
+    bdayPhoto.src = fallback;
+    goodbyePhoto.src = fallback;
+    imgSkeleton.classList.add("hidden");
+    queenPhoto.classList.remove("hidden");
+  };
+}
+
+// ----------------------------------------------------
+// 5. FLOW ROUTER (MAY 21 VS NORMAL DAYS)
 // ----------------------------------------------------
 startBtn.addEventListener("click", (e) => {
   const rect = startBtn.getBoundingClientRect();
@@ -364,10 +383,8 @@ startBtn.addEventListener("click", (e) => {
     openingCard.classList.add("hidden");
 
     if (isBirthdayToday) {
-      // Direct birthday flow! No questions!
       birthdayCard.classList.remove("hidden");
     } else {
-      // Normal day interactive game
       gameCard.classList.remove("hidden");
       startStage1();
     }
@@ -383,7 +400,7 @@ claimBdayQuoteBtn.addEventListener("click", () => {
 });
 
 // ----------------------------------------------------
-// 5. STAGE 1: DESIRE QUESTION & SCANNER
+// 6. STAGE 1: DESIRE QUESTION & SCANNER
 // ----------------------------------------------------
 let userQ1Choice = "";
 let userRevChoice = "";
@@ -498,7 +515,7 @@ function showVerdict() {
 }
 
 // ----------------------------------------------------
-// 6. STAGE 2: ROMANTIC SENTENCE TO SAAD
+// 7. STAGE 2: ROMANTIC SENTENCE TO SAAD
 // ----------------------------------------------------
 function startStage2() {
   currentQuoteStep = 2;
@@ -552,7 +569,7 @@ submitS2Btn.addEventListener("click", () => {
 });
 
 // ----------------------------------------------------
-// 7. STAGE 3: HOW INTENSELY QUESTION
+// 8. STAGE 3: HOW INTENSELY QUESTION
 // ----------------------------------------------------
 function startStage3() {
   currentQuoteStep = 3;
@@ -597,7 +614,7 @@ function onSelectStage3(selectedOpt, btnElement) {
 }
 
 // ----------------------------------------------------
-// 8. QUOTE RENDERER & USED MARKER
+// 9. QUOTE RENDERER (WITH RANDOM PHOTO & USED TRACKER)
 // ----------------------------------------------------
 function renderQuote(stepNumber, isBirthdayDirect = false) {
   verdictPanel.classList.add("hidden");
@@ -606,7 +623,10 @@ function renderQuote(stepNumber, isBirthdayDirect = false) {
   const quoteObj = dailyThreeQuotes[stepNumber - 1] || dailyThreeQuotes[0];
   quoteBodyText.textContent = quoteObj.quote;
 
-  // Mark this unlocked quote as used in client storage & backend
+  // Render a brand-new random picture of Aneeza on the quote card!
+  quotePhoto.src = getRandomImageUrl();
+
+  // Mark this unlocked quote as used so it NEVER repeats!
   markQuoteAsUsed(quoteObj.quote_id);
 
   if (isBirthdayDirect || isBirthdayToday) {
@@ -639,7 +659,7 @@ function renderQuote(stepNumber, isBirthdayDirect = false) {
 }
 
 // ----------------------------------------------------
-// 9. PROGRESS BAR & EXIT
+// 10. PROGRESS BAR & EXIT
 // ----------------------------------------------------
 function updateProgressBar(step) {
   progStep1.classList.remove("active", "completed");
@@ -679,11 +699,11 @@ reopenPortalBtn.addEventListener("click", () => {
 });
 
 // ----------------------------------------------------
-// 10. SAAD'S SECRET REPLIES VIEWER & EXPORT
-// Tap the top greeting badge 3 times to view her answers!
+// 11. SAAD'S SECRET REPLIES VIEWER & EXPORT
+// Tap the top badge 3 times to open admin panel!
 // ----------------------------------------------------
 let badgeClickCount = 0;
-greetingBadge.addEventListener("click", () => {
+openingBadgeWrapper.addEventListener("click", () => {
   badgeClickCount++;
   if (badgeClickCount >= 3) {
     badgeClickCount = 0;
@@ -696,10 +716,9 @@ function openSaadRepliesModal() {
   modalRepliesList.innerHTML = "";
 
   if (replies.length === 0) {
-    modalRepliesList.innerHTML = "<p style='color: #e2b3c7;'>No replies saved yet. As soon as Aneeza answers on this device, they will show up here!</p>";
+    modalRepliesList.innerHTML = "<p style='color: #e2b3c7; padding: 10px;'>No replies recorded yet. As soon as Aneeza answers questions on her device, they appear right here!</p>";
   } else {
-    // Show in reverse chronological order
-    replies.slice().reverse().forEach((r, idx) => {
+    replies.slice().reverse().forEach((r) => {
       const item = document.createElement("div");
       item.className = "reply-item";
       item.innerHTML = `
@@ -721,7 +740,6 @@ closeModalBtn.addEventListener("click", () => {
   saadModal.classList.add("hidden");
 });
 
-// Download replies.json
 exportRepliesBtn.addEventListener("click", () => {
   const replies = localStorage.getItem(STORAGE_REPLIES) || "[]";
   const blob = new Blob([replies], { type: "application/json" });
@@ -733,9 +751,8 @@ exportRepliesBtn.addEventListener("click", () => {
   URL.revokeObjectURL(url);
 });
 
-// Clear history option
 clearRepliesBtn.addEventListener("click", () => {
-  if (confirm("Are you sure you want to clear saved replies on this device?")) {
+  if (confirm("Clear saved replies history on this device?")) {
     localStorage.removeItem(STORAGE_REPLIES);
     openSaadRepliesModal();
   }

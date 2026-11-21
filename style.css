@@ -11,7 +11,7 @@
   --rose-glow: rgba(255, 42, 112, 0.45);
   --gold-accent: #fcd34d;
   --gold-glow: rgba(252, 211, 77, 0.35);
-  --glass-bg: rgba(22, 4, 14, 0.78);
+  --glass-bg: rgba(22, 4, 14, 0.82);
   --glass-border: rgba(255, 255, 255, 0.14);
   --glass-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
   --text-main: #fff5f8;
@@ -83,7 +83,7 @@ html, body {
   100% { transform: translateY(-15px) scale(0.95); }
 }
 
-/* Floating Emoji Blast Container */
+/* Floating Emoji Blast Container - Continuous on all screens */
 .emoji-container {
   position: fixed;
   top: 0;
@@ -159,7 +159,7 @@ html, body {
   align-items: center;
 }
 
-/* Glassmorphism Unified Interactive Card */
+/* Glassmorphism Interactive Card */
 .interactive-card {
   width: 100%;
   background: var(--glass-bg);
@@ -198,6 +198,7 @@ html, body {
   align-items: center;
   justify-content: center;
   margin-bottom: 12px;
+  cursor: pointer;
 }
 
 .greeting-badge, .stage-badge {
@@ -362,6 +363,29 @@ html, body {
 }
 
 /* ==================================================
+   NEW: DEDICATED RANDOM PHOTO ON QUOTE SCREEN
+   ================================================== */
+.quote-photo-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.quote-photo-frame {
+  width: 180px;
+  height: 220px;
+  border-radius: 22px;
+  padding: 4px;
+  background: linear-gradient(145deg, rgba(255, 140, 180, 0.6), rgba(255, 42, 112, 0.3), rgba(252, 211, 77, 0.5));
+  box-shadow: 0 12px 30px -6px rgba(0, 0, 0, 0.8),
+              0 0 25px 2px var(--rose-glow);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s ease;
+}
+
+/* ==================================================
    PROGRESS BAR
    ================================================== */
 .game-progress-bar {
@@ -495,17 +519,6 @@ html, body {
   box-shadow: 0 0 20px rgba(255, 42, 112, 0.5);
   color: #ffffff;
   font-weight: 600;
-}
-
-.option-btn.correct {
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.35), rgba(5, 150, 105, 0.25));
-  border-color: #10b981;
-  box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
-}
-
-.option-btn.lost {
-  background: linear-gradient(135deg, rgba(239, 68, 68, 0.3), rgba(185, 28, 28, 0.2));
-  border-color: #ef4444;
 }
 
 .reverse-box {
@@ -901,6 +914,123 @@ html, body {
   margin-bottom: 24px;
 }
 
+/* ==================================================
+   SAAD'S SECRET REPLIES MODAL
+   ================================================== */
+.saad-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(0, 0, 0, 0.82);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-card {
+  width: 100%;
+  max-width: 420px;
+  max-height: 85vh;
+  background: #18030e;
+  border: 1px solid rgba(255, 140, 180, 0.3);
+  border-radius: 24px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+}
+
+.modal-header h3 {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  color: #ffe4e6;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 1.6rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.modal-actions-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.modal-btn {
+  flex: 1;
+  background: rgba(255, 42, 112, 0.25);
+  border: 1px solid var(--rose-primary);
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 8px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.modal-btn.danger {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: rgba(239, 68, 68, 0.5);
+  color: #fca5a5;
+}
+
+.modal-replies-list {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-right: 4px;
+}
+
+.reply-item {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 12px;
+  text-align: left;
+}
+
+.reply-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: var(--gold-accent);
+  margin-bottom: 6px;
+}
+
+.reply-q {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.reply-a {
+  font-size: 0.88rem;
+  color: #ffffff;
+  font-style: italic;
+  background: rgba(255, 42, 112, 0.15);
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+
 .hidden {
   display: none !important;
 }
@@ -910,6 +1040,10 @@ html, body {
   .photo-frame-container {
     width: 210px;
     height: 255px;
+  }
+  .quote-photo-frame {
+    width: 160px;
+    height: 200px;
   }
   .love-title {
     font-size: 1.45rem;
