@@ -1,0 +1,14 @@
+# Ignore user personal images
+images/
+images/*
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+
+# Temporary / scratch files
+*.log
+*.tmp
