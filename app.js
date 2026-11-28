@@ -1,11 +1,14 @@
 // ==========================================================
-// SAAD & ANEEZA - INTERACTIVE LOVE SANCTUARY (VERCEL + LOCAL READY)
-// Fixes Applied:
-// 1. Permanent continuous love emoji rain & floating kisses across ALL screens
-// 2. Unlocked quote is guaranteed saved & marked as used in love_used_tracker
-// 3. Her answers strictly saved with full details & timestamp
-// 4. Random photo of Aneeza now displayed on the Quote Screen
-// 5. Secret Admin Trigger: Tap top badge 3 times to inspect/download replies
+// SAAD & ANEEZA - INTERACTIVE LOVE SANCTUARY (ROMAN URDU CASUAL EDITION)
+// Features:
+// 1. Natural casual tone (kisses, touch, warm hugs)
+// 2. Full-screen DULL / BLUR shifting overlay:
+//    "Shifting to Saad's profile to get his answer against your answer..."
+// 3. Stage 2 tricky prompt so she writes openly without shame
+// 4. Strict 3 Quotes Quota Limit with a teasing refusal panel afterwards!
+// 5. Continuous love emoji rain on all screens + Random photo on quote screen
+// 6. 21 May Salgirah mode bypasses questions directly to birthday quote
+// 7. Secret Saad Admin: Tap top badge 3 times to view/export her answers
 // ==========================================================
 
 const HER_IMAGES = [
@@ -52,8 +55,8 @@ const EMOJI_THEMES = [
 const FRAME_ANIMATIONS = ["anim-heartbeat", "anim-float", "anim-glow"];
 
 // Storage Keys
-const STORAGE_USED_QUOTES = "saad_aneeza_used_quotes_v1";
-const STORAGE_REPLIES = "saad_aneeza_replies_v1";
+const STORAGE_USED_QUOTES = "saad_aneeza_used_quotes_v2";
+const STORAGE_REPLIES = "saad_aneeza_replies_v2";
 
 // State
 let allQuotes = [];
@@ -66,6 +69,11 @@ let currentEmojiSet = ["💖", "❤️", "💋", "🔥", "✨", "🌹", "🫦"];
 
 // DOM Elements
 const emojiContainer = document.getElementById("emoji-container");
+const saadShiftOverlay = document.getElementById("saad-shift-overlay");
+const shiftTitle = document.getElementById("shift-title");
+const shiftDesc = document.getElementById("shift-desc");
+const shiftStatusText = document.getElementById("shift-status-text");
+
 const openingCard = document.getElementById("opening-card");
 const birthdayCard = document.getElementById("birthday-card");
 const gameCard = document.getElementById("game-card");
@@ -93,8 +101,6 @@ const reverseQBox = document.getElementById("reverse-q-box");
 const revQText = document.getElementById("rev-q-text");
 const revOptions = document.getElementById("rev-options");
 
-const scannerPanel = document.getElementById("scanner-panel");
-const scanBar = document.getElementById("scan-bar");
 const verdictPanel = document.getElementById("verdict-panel");
 const verdictIcon = document.getElementById("verdict-icon");
 const verdictTitle = document.getElementById("verdict-title");
@@ -103,6 +109,7 @@ const showQuoteBtn = document.getElementById("show-quote-btn");
 
 const stage2Panel = document.getElementById("stage-2-panel");
 const s2Prompt = document.getElementById("s2-prompt");
+const s2Instruction = document.getElementById("s2-instruction");
 const s2Input = document.getElementById("s2-input");
 const s2Counter = document.getElementById("s2-counter");
 const submitS2Btn = document.getElementById("submit-s2-btn");
@@ -115,6 +122,10 @@ const quoteDisplayPanel = document.getElementById("quote-display-panel");
 const quoteNumberTag = document.getElementById("quote-number-tag");
 const bdayBadge = document.getElementById("bday-badge");
 const quoteBodyText = document.getElementById("quote-body-text");
+
+// Refusal Panel
+const refusalPanel = document.getElementById("refusal-panel");
+const refusalCloseBtn = document.getElementById("refusal-close-btn");
 
 // Modal Elements for Saad
 const saadModal = document.getElementById("saad-modal");
@@ -154,7 +165,7 @@ async function initAppData() {
     console.error("Data fetch error fallback", err);
   }
 
-  // Check if today is May 21st (Month 4 in JS is May)
+  // Check if today is 21 May (Month 4 in JS is May)
   const now = new Date();
   isBirthdayToday = (now.getMonth() === 4 && now.getDate() === 21);
 
@@ -203,7 +214,7 @@ function selectDailyContent() {
 
   if (allQuotes && allQuotes.length > 0) {
     if (isBirthdayToday) {
-      // Guaranteed once-a-year birthday quote only on May 21st!
+      // Guaranteed exclusive birthday quote only on May 21!
       const bdayQuote = allQuotes.find(q => q.quote_id === "birthdayquote") || allQuotes[0];
       dailyThreeQuotes = [bdayQuote];
     } else {
@@ -241,17 +252,15 @@ function logHerReply(stageName, questionText, herReplyText, extraDetails = {}) {
     details: extraDetails
   };
 
-  // 1. Guaranteed Save in LocalStorage on device
   try {
     const stored = JSON.parse(localStorage.getItem(STORAGE_REPLIES) || "[]");
     stored.push(newEntry);
     localStorage.setItem(STORAGE_REPLIES, JSON.stringify(stored));
-    console.log(`[Reply Saved]`, newEntry);
+    console.log(`[Reply Saved in Urdu Portal]`, newEntry);
   } catch (e) {
     console.error("LocalStorage reply write error", e);
   }
 
-  // 2. Also send to API endpoint (works with Vercel serverless / Python server)
   fetch("/api/save_reply", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -263,7 +272,6 @@ function markQuoteAsUsed(quoteId) {
   if (!quoteId) return;
   saveUsedQuoteId(quoteId);
 
-  // Sync with API
   fetch("/api/mark_used", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -275,12 +283,10 @@ function markQuoteAsUsed(quoteId) {
 // 3. CONTINUOUS LOVE EMOJI RAIN ON ALL SCREENS
 // ----------------------------------------------------
 function startContinuousEmojiRain() {
-  // Initial opening burst
   for (let i = 0; i < 28; i++) {
     createFallingEmoji(currentEmojiSet, i * 80);
   }
 
-  // Continuous rain that never stops on all screens
   setInterval(() => {
     createFallingEmoji(currentEmojiSet, 0);
   }, 550);
@@ -373,7 +379,7 @@ function initOpeningScreen() {
 }
 
 // ----------------------------------------------------
-// 5. FLOW ROUTER (MAY 21 VS NORMAL DAYS)
+// 5. FLOW ROUTER (21 MAY VS NORMAL DAYS)
 // ----------------------------------------------------
 startBtn.addEventListener("click", (e) => {
   const rect = startBtn.getBoundingClientRect();
@@ -391,7 +397,6 @@ startBtn.addEventListener("click", (e) => {
   }, 450);
 });
 
-// Birthday Claim Button Click
 claimBdayQuoteBtn.addEventListener("click", () => {
   birthdayCard.classList.add("hidden");
   gameCard.classList.remove("hidden");
@@ -400,7 +405,7 @@ claimBdayQuoteBtn.addEventListener("click", () => {
 });
 
 // ----------------------------------------------------
-// 6. STAGE 1: DESIRE QUESTION & SCANNER
+// 6. STAGE 1: DESIRE QUESTION & FULLSCREEN SAAD SHIFT
 // ----------------------------------------------------
 let userQ1Choice = "";
 let userRevChoice = "";
@@ -410,12 +415,13 @@ function startStage1() {
   updateProgressBar(1);
 
   stage1Panel.classList.remove("hidden");
-  scannerPanel.classList.add("hidden");
   verdictPanel.classList.add("hidden");
   stage2Panel.classList.add("hidden");
   stage3Panel.classList.add("hidden");
   quoteDisplayPanel.classList.add("hidden");
+  refusalPanel.classList.add("hidden");
   reverseQBox.classList.add("hidden");
+  saadShiftOverlay.classList.add("hidden");
 
   const s1 = currentDayGame.stage1_question;
   q1Text.textContent = s1.question;
@@ -460,40 +466,50 @@ function onSelectRev(selectedOpt, btnElement) {
 
   // Save her Stage 1 reply!
   logHerReply(
-    "Stage 1: Desire & Reverse Kiss Question",
+    "Marhala 1: Shohar Ki Khwahish Aur Reverse Sawaal",
     `${currentDayGame.stage1_question.question} | Reverse: ${currentDayGame.stage1_question.reverse_question}`,
-    `Her guess for Saad: "${userQ1Choice}" | Where she wants to be kissed: "${userRevChoice}"`,
+    `Saad k baare mein andaza: "${userQ1Choice}" | Aneeza khud kahan chahti hai: "${userRevChoice}"`,
     {
       saad_choice: currentDayGame.stage1_question.saad_choice,
       matched: userQ1Choice.trim().toLowerCase() === currentDayGame.stage1_question.saad_choice.trim().toLowerCase()
     }
   );
 
-  setTimeout(() => {
-    runDesireScanner();
-  }, 450);
+  // Trigger Fullscreen Dull & Saad Shift
+  triggerSaadShiftLoader(
+    "Shifting to Saad's Profile...",
+    "Saad ki secret profile se uska live answer aur reaction laya ja raha hai...",
+    "Connecting directly to Saad's heart ❤️‍🔥",
+    () => {
+      showVerdict();
+    }
+  );
 }
 
-function runDesireScanner() {
-  stage1Panel.classList.add("hidden");
-  scannerPanel.classList.remove("hidden");
+// Real-time Dull & Shift Overlay Engine
+function triggerSaadShiftLoader(titleText, descText, statusText, onComplete) {
+  shiftTitle.textContent = titleText;
+  shiftDesc.textContent = descText;
+  shiftStatusText.textContent = statusText;
 
-  let progress = 0;
-  scanBar.style.width = "0%";
-  const interval = setInterval(() => {
-    progress += 25;
-    scanBar.style.width = `${progress}%`;
-    if (progress >= 100) {
-      clearInterval(interval);
-      setTimeout(() => {
-        showVerdict();
-      }, 500);
-    }
-  }, 400);
+  saadShiftOverlay.classList.remove("hidden");
+
+  setTimeout(() => {
+    shiftStatusText.textContent = "Analyzing Saad's response against your choice...";
+  }, 1200);
+
+  setTimeout(() => {
+    shiftStatusText.textContent = "Saad's feelings confirmed! Delivering to Aneeza... 💌";
+  }, 2300);
+
+  setTimeout(() => {
+    saadShiftOverlay.classList.add("hidden");
+    if (onComplete) onComplete();
+  }, 3200);
 }
 
 function showVerdict() {
-  scannerPanel.classList.add("hidden");
+  stage1Panel.classList.add("hidden");
   verdictPanel.classList.remove("hidden");
 
   const s1 = currentDayGame.stage1_question;
@@ -501,21 +517,21 @@ function showVerdict() {
 
   if (isCorrect) {
     verdictIcon.textContent = "🎉🔥";
-    verdictTitle.textContent = "Wowww! Perfect Match!";
-    verdictMsg.innerHTML = `<strong>Aneeza, you know your husband by heart!</strong><br><br>${s1.reveal_reaction}<br><br>And knowing you crave <em>"${userRevChoice}"</em> right now makes Saad's heart race!`;
-    showQuoteBtn.textContent = "Read Quote 1 of 3 ✨";
+    verdictTitle.textContent = "Wahhh! Kamaal Ka Match!";
+    verdictMsg.innerHTML = `<strong>Aneeza, tum toh Saad ki rooh tak ko pehchanti ho!</strong><br><br>${s1.reveal_reaction}<br><br>Aur ye sun kar k tumhara dil <em>"${userRevChoice}"</em> chahta hai, Saad ka khoon garma gaya hai!`;
+    showQuoteBtn.textContent = "Pehla Quote Parho (1 / 3) ✨";
     showQuoteBtn.onclick = () => renderQuote(1);
   } else {
     verdictIcon.textContent = "😜💋";
-    verdictTitle.textContent = "Hahaha almost, my queen!";
-    verdictMsg.innerHTML = `You guessed <em>"${userQ1Choice}"</em>, but Saad's absolute weakness is actually: <br><strong>"${s1.saad_choice}"</strong>!<br><br>Because he loves you so uncontrollably, he will never let you lose your quote. Read what he wrote for you:`;
-    showQuoteBtn.textContent = "Claim Quote 1 Anyway ❤️";
+    verdictTitle.textContent = "Hahaha qareeb pohanchi theen, meri jaan!";
+    verdictMsg.innerHTML = `Tumhara andaza tha <em>"${userQ1Choice}"</em>, magar Saad ki sab se bari kamzori asal mein hai: <br><strong>"${s1.saad_choice}"</strong>!<br><br>Lekin Saad tumhein kabhi haarne nahi dega kyun k wo tum se be-panah piyaar karta hai. Dekho usne tumhare liye kya likha hai:`;
+    showQuoteBtn.textContent = "Phir Bhi Quote 1 Claim Karo ❤️";
     showQuoteBtn.onclick = () => renderQuote(1);
   }
 }
 
 // ----------------------------------------------------
-// 7. STAGE 2: ROMANTIC SENTENCE TO SAAD
+// 7. STAGE 2: ROMANTIC SENTENCE TO SAAD (WITH TRICK)
 // ----------------------------------------------------
 function startStage2() {
   currentQuoteStep = 2;
@@ -526,19 +542,20 @@ function startStage2() {
 
   const s2 = currentDayGame.stage2_challenge;
   s2Prompt.textContent = s2.prompt;
-  s2Input.placeholder = s2.placeholder;
+  s2Instruction.innerHTML = `⚠️ <strong>Zaroori Note:</strong> Ye sab Saad ko send nahi hoga! Yahan bina kisi sharam k khul kar apni dil ki feelings aur khwahishat likho ta k system tum dono ki love profiles bana kar is app ko mazeed exciting aur aag laga dene wala bana sakay! 😉`;
+  s2Input.placeholder = s2.placeholder || "Yahan be-khauf ho kar Saad k liye apni feelings aur khwahishat likho...";
   s2Input.value = "";
-  s2Counter.textContent = `Minimum ${s2.min_words} words required ❤️`;
+  s2Counter.textContent = `Kam az kam ${s2.min_words} alfaaz likhein ❤️`;
 }
 
 s2Input.addEventListener("input", () => {
   const words = s2Input.value.trim().split(/\s+/).filter(w => w.length > 0);
   const minWords = currentDayGame.stage2_challenge.min_words || 4;
   if (words.length >= minWords) {
-    s2Counter.textContent = `✨ ${words.length} passionate words! Ready to send to Saad.`;
+    s2Counter.textContent = `✨ ${words.length} pur-kashish alfaaz! Quote 2 kholne k liye tayyar.`;
     s2Counter.style.color = "#10b981";
   } else {
-    s2Counter.textContent = `${words.length} / ${minWords} words entered... keep whispering ❤️`;
+    s2Counter.textContent = `${words.length} / ${minWords} alfaaz likhe gaye... aur likhein ❤️`;
     s2Counter.style.color = "#e2b3c7";
   }
 });
@@ -549,13 +566,13 @@ submitS2Btn.addEventListener("click", () => {
   const minWords = currentDayGame.stage2_challenge.min_words || 4;
 
   if (words.length < minWords) {
-    alert(`Aneeza my love, whisper at least ${minWords} words for Saad before claiming your quote! 💋`);
+    alert(`Aneeza meri jaan, kam az kam ${minWords} alfaaz likho ta k tumhara secret quote unlock ho sakay! 💋`);
     return;
   }
 
   // Save her Stage 2 sentence!
   logHerReply(
-    "Stage 2: Romantic Whisper to Saad",
+    "Marhala 2: Aneeza Ki Secret Khwahish (Trick Question)",
     currentDayGame.stage2_challenge.prompt,
     textVal,
     { word_count: words.length }
@@ -564,8 +581,16 @@ submitS2Btn.addEventListener("click", () => {
   const rect = submitS2Btn.getBoundingClientRect();
   triggerBurstAt(rect.left + rect.width / 2, rect.top + rect.height / 2);
 
-  stage2Panel.classList.add("hidden");
-  renderQuote(2);
+  // Trigger Fullscreen Dull & Saad Shift for Stage 2
+  triggerSaadShiftLoader(
+    "Syncing with Saad's Mind...",
+    "Aneeza k alfaz parh kar Saad k dil ki dharkan synchronize ho rahi hai...",
+    "Unlocking Saad's secret quote for Aneeza... 💌",
+    () => {
+      stage2Panel.classList.add("hidden");
+      renderQuote(2);
+    }
+  );
 });
 
 // ----------------------------------------------------
@@ -598,7 +623,7 @@ function onSelectStage3(selectedOpt, btnElement) {
 
   // Save her Stage 3 choice!
   logHerReply(
-    "Stage 3: Intimate Intensity Choice",
+    "Marhala 3: Raat Ka Junoon Aur Touch",
     currentDayGame.stage3_challenge.question,
     selectedOpt,
     { saad_favorite: currentDayGame.stage3_challenge.saad_favorite_option }
@@ -607,18 +632,25 @@ function onSelectStage3(selectedOpt, btnElement) {
   const rect = btnElement.getBoundingClientRect();
   triggerBurstAt(rect.left + rect.width / 2, rect.top + rect.height / 2);
 
-  setTimeout(() => {
-    stage3Panel.classList.add("hidden");
-    renderQuote(3);
-  }, 500);
+  // Trigger Fullscreen Dull & Saad Shift for Stage 3
+  triggerSaadShiftLoader(
+    "Final Heart Alignment with Saad...",
+    "Shifting to Saad's profile to compare his touch craving against yours...",
+    "Saad says: 'Tum meri ho aur hamesha meri rahogi' ❤️‍🔥",
+    () => {
+      stage3Panel.classList.add("hidden");
+      renderQuote(3);
+    }
+  );
 }
 
 // ----------------------------------------------------
-// 9. QUOTE RENDERER (WITH RANDOM PHOTO & USED TRACKER)
+// 9. QUOTE RENDERER & TRICKY 3-QUOTE STOP
 // ----------------------------------------------------
 function renderQuote(stepNumber, isBirthdayDirect = false) {
   verdictPanel.classList.add("hidden");
   quoteDisplayPanel.classList.remove("hidden");
+  refusalPanel.classList.add("hidden");
 
   const quoteObj = dailyThreeQuotes[stepNumber - 1] || dailyThreeQuotes[0];
   quoteBodyText.textContent = quoteObj.quote;
@@ -626,37 +658,48 @@ function renderQuote(stepNumber, isBirthdayDirect = false) {
   // Render a brand-new random picture of Aneeza on the quote card!
   quotePhoto.src = getRandomImageUrl();
 
-  // Mark this unlocked quote as used so it NEVER repeats!
+  // Mark this quote as used
   markQuoteAsUsed(quoteObj.quote_id);
 
   if (isBirthdayDirect || isBirthdayToday) {
-    quoteNumberTag.textContent = "Birthday Exclusive Edition 🎂";
+    quoteNumberTag.textContent = "Khaas Salgirah Edition 🎂";
     bdayBadge.classList.remove("hidden");
-    nextStageBtn.textContent = "Happy Birthday, My Soulmate! 🥰";
+    nextStageBtn.textContent = "Salgirah Mubarak, Meri Jaan! 🥰";
     nextStageBtn.onclick = () => exitSanctuary();
-    logoutBtn.textContent = "Save in My Heart & Exit 🌙";
+    logoutBtn.textContent = "Dil Mein Mehfooz Karo & Band Karo 🌙";
   } else {
-    quoteNumberTag.textContent = `Quote ${stepNumber} of 3`;
+    quoteNumberTag.textContent = `Quote ${stepNumber} / 3`;
     bdayBadge.classList.add("hidden");
 
     if (stepNumber === 1) {
-      nextStageBtn.textContent = "Unlock Quote 2: Whisper to Saad 💌";
+      nextStageBtn.textContent = "Doosra Quote Kholein: Dil Ki Baat Likho 💌";
       nextStageBtn.onclick = () => startStage2();
       logoutBtn.classList.remove("hidden");
     } else if (stepNumber === 2) {
-      nextStageBtn.textContent = "Unlock Final Quote 3: Touch & Passion ❤️‍🔥";
+      nextStageBtn.textContent = "Aakhri Teesra Quote Kholein: Romance Aur Touch ❤️‍🔥";
       nextStageBtn.onclick = () => startStage3();
       logoutBtn.classList.remove("hidden");
     } else if (stepNumber === 3) {
-      nextStageBtn.textContent = "You've Completed Today's Sanctuary! 🥰";
-      nextStageBtn.onclick = () => exitSanctuary();
-      logoutBtn.textContent = "Seal With a Kiss & Exit 🌙";
+      nextStageBtn.textContent = "Mazeed Quotes Maango? (Click Karo) 😈";
+      nextStageBtn.onclick = () => showRefusalScreen();
+      logoutBtn.textContent = "Sweet Kiss De Kar Band Karein 🌙";
     }
   }
 
   quoteDisplayPanel.scrollIntoView({ behavior: "smooth", block: "start" });
   triggerBurstAt(window.innerWidth / 2, window.innerHeight * 0.4);
 }
+
+function showRefusalScreen() {
+  quoteDisplayPanel.classList.add("hidden");
+  refusalPanel.classList.remove("hidden");
+  refusalPanel.scrollIntoView({ behavior: "smooth", block: "center" });
+  triggerBurstAt(window.innerWidth / 2, window.innerHeight / 2);
+}
+
+refusalCloseBtn.addEventListener("click", () => {
+  exitSanctuary();
+});
 
 // ----------------------------------------------------
 // 10. PROGRESS BAR & EXIT
@@ -700,7 +743,6 @@ reopenPortalBtn.addEventListener("click", () => {
 
 // ----------------------------------------------------
 // 11. SAAD'S SECRET REPLIES VIEWER & EXPORT
-// Tap the top badge 3 times to open admin panel!
 // ----------------------------------------------------
 let badgeClickCount = 0;
 openingBadgeWrapper.addEventListener("click", () => {
@@ -716,7 +758,7 @@ function openSaadRepliesModal() {
   modalRepliesList.innerHTML = "";
 
   if (replies.length === 0) {
-    modalRepliesList.innerHTML = "<p style='color: #e2b3c7; padding: 10px;'>No replies recorded yet. As soon as Aneeza answers questions on her device, they appear right here!</p>";
+    modalRepliesList.innerHTML = "<p style='color: #e2b3c7; padding: 10px;'>Abhi tak koi jawab record nahi hua. Jese hi Aneeza sawalon k jawab degi, wo foran yahan show honge!</p>";
   } else {
     replies.slice().reverse().forEach((r) => {
       const item = document.createElement("div");
@@ -726,8 +768,8 @@ function openSaadRepliesModal() {
           <span class="reply-date">🕒 ${r.timestamp || r.date}</span>
           <span class="reply-stage">${r.stage}</span>
         </div>
-        <div class="reply-q"><strong>Q:</strong> ${r.question}</div>
-        <div class="reply-a"><strong>Aneeza:</strong> "${r.her_reply}"</div>
+        <div class="reply-q"><strong>Sawaal:</strong> ${r.question}</div>
+        <div class="reply-a"><strong>Aneeza Ka Jawab:</strong> "${r.her_reply}"</div>
       `;
       modalRepliesList.appendChild(item);
     });
@@ -752,7 +794,7 @@ exportRepliesBtn.addEventListener("click", () => {
 });
 
 clearRepliesBtn.addEventListener("click", () => {
-  if (confirm("Clear saved replies history on this device?")) {
+  if (confirm("Kya aap saved answers ki history clear karna chahte hain?")) {
     localStorage.removeItem(STORAGE_REPLIES);
     openSaadRepliesModal();
   }
