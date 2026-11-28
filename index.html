@@ -6,6 +6,7 @@
   <meta name="viewport"
     content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="theme-color" content="#120108">
+  <link rel="manifest" href="manifest.json">
   <title>Aneeza & Saad ❤️ Daily Love Sanctuary</title>
 
   <!-- Romantic Google Fonts -->
@@ -85,12 +86,18 @@
         <button id="start-btn" class="start-btn" type="button">
           <span class="btn-glow"></span>
           <span class="btn-text">
-            <span class="btn-icon">💌</span> Janam yahan click karo
+            <span class="btn-icon">💌</span> Meri jaan yahan click karo
           </span>
           <span class="btn-hearts">💖✨</span>
         </button>
         <p class="tap-hint">Meri jaan yahan tap karo gi toh 3 mazay k quote jo tumhari mohabbat mein likhay hain aur is
           software ko train kiya hai wo unlock kar sako gi...</p>
+
+        <!-- Notification Bell Button -->
+        <button id="notif-bell-btn" class="notif-bell-btn" type="button">
+          <span class="bell-icon">🔔</span>
+          <span id="notif-btn-text">Rozana time par mera notification pao meri jaan</span>
+        </button>
       </div>
 
     </section>
@@ -187,15 +194,14 @@
       <div id="stage-2-panel" class="game-stage hidden">
         <div class="stage-badge">💌 Doosra Marhala: Dil Ki Baat</div>
         <h2 class="stage-question" id="s2-prompt">Meri jaan doosra quote kholne k liye, mere liye 1 pyari si romantic
-          baat likho jo tum chahti ho laken sharmati ho:</h2>
+          baat likho:</h2>
 
         <!-- Trick Notice telling her it's not sent to Saad so she writes openly -->
         <div class="confidential-box">
           <span class="lock-icon">🔒</span>
           <p id="s2-instruction">
-            🌸 <strong>Chhota sa Note jo tum chahti ho but sharmati ho:</strong> Ye message muj ko direct send nahi
-            hoga! Yahan bina kisi jhijhak k mere
-            liye koi bhi pyari si sexy c baat likho ta k system hum dono ki sweet profile ko update kar sakay! 😉
+            🌸 <strong>Chhota sa Note:</strong> Ye message Saad ko direct send nahi hoga! Yahan bina kisi jhijhak k mere
+            liye koi bhi pyari si baat ya dua likho ta k system hum dono ki sweet profile ko update kar sakay! 😉
           </p>
         </div>
 
@@ -206,7 +212,7 @@
         </div>
 
         <button id="submit-s2-btn" class="continue-btn" type="button">
-          Janam yahan click kar k doosra quote kholo 💖
+          Meri jaan yahan click kar k doosra quote kholo 💖
         </button>
       </div>
 
@@ -295,6 +301,38 @@
     </section>
 
   </main>
+
+  <!-- MODAL: ANEEZA TIME SETTING MODAL (PERMANENT ONE-TIME SETTING) -->
+  <div id="time-picker-modal" class="saad-modal hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>⏰ Meri Jaan Notification Time Set Karo</h3>
+        <button id="close-time-modal-btn" class="modal-close">&times;</button>
+      </div>
+      <div class="time-picker-body">
+        <p class="time-picker-intro">
+          Aneeza meri jaan, rozana jis waqt tum chahti ho k mera piyaar bhara paigham tumhare phone par pop-up kare, wo
+          time select karo:
+        </p>
+
+        <div class="time-input-wrap">
+          <input type="time" id="custom-time-input" value="19:30" class="custom-time-input">
+        </div>
+
+        <div class="lock-warning-box">
+          <span class="warning-icon">⚠️</span>
+          <p>
+            <strong>Ahem Baat:</strong> Ek dafa ye time set ho gaya toh ye dobara <strong>changeable nahi hai</strong>!
+            Agar baad mein time badalna hua toh Saad ko bol kar code mein change karwana parega. 😉
+          </p>
+        </div>
+
+        <button id="save-locked-time-btn" class="continue-btn" type="button" style="width: 100%; margin-top: 10px;">
+          Yeh Time Lock Kar Do Saad ❤️
+        </button>
+      </div>
+    </div>
+  </div>
 
   <!-- SAAD'S SECRET REPLIES MODAL (Saad can secretly read what she wrote!) -->
   <div id="saad-modal" class="saad-modal hidden">

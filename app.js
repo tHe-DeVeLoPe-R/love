@@ -1,7 +1,14 @@
 // ==========================================================
 // SAAD & ANEEZA - INTERACTIVE LOVE SANCTUARY (PERSONAL DIRECT-TALK EDITION)
-// Rule: Every button, message, loader and prompt talks directly to her:
-// "Meri jaan yahan click karo", "Ruko meri jaan, main dekh raha hoon...", etc.
+// Features:
+// 1. Direct personal communication everywhere
+// 2. Custom Time Picker for Aneeza: One-Time Locked Daily Alarm
+//    ("Ye changeable nahi hai jab tak Saad ko bol kar code se change na karwao")
+// 3. Realtime dull & shift overlay ("Ruko meri jaan, main dekh raha hoon...")
+// 4. Strict 3 Quotes Quota Limit with a teasing refusal panel afterwards!
+// 5. Continuous love emoji rain on all screens + Random photo on quote screen
+// 6. 21 May Salgirah mode bypasses questions directly to birthday quote
+// 7. Secret Saad Admin: Tap top badge 3 times to view/export her answers
 // ==========================================================
 
 const HER_IMAGES = [
@@ -48,6 +55,8 @@ const FRAME_ANIMATIONS = ["anim-heartbeat", "anim-float", "anim-glow"];
 // Storage Keys
 const STORAGE_USED_QUOTES = "saad_aneeza_used_quotes_v2";
 const STORAGE_REPLIES = "saad_aneeza_replies_v2";
+const STORAGE_NOTIF_TIME = "saad_aneeza_notif_time"; // e.g. "19:30"
+const STORAGE_NOTIF_LOCKED = "saad_aneeza_notif_locked"; // "true"
 
 // State
 let allQuotes = [];
@@ -75,6 +84,14 @@ const claimBdayQuoteBtn = document.getElementById("claim-bday-quote-btn");
 const logoutBtn = document.getElementById("logout-btn");
 const reopenPortalBtn = document.getElementById("reopen-portal-btn");
 const nextStageBtn = document.getElementById("next-stage-btn");
+const notifBellBtn = document.getElementById("notif-bell-btn");
+const notifBtnText = document.getElementById("notif-btn-text");
+
+// Time Picker Modal Elements
+const timePickerModal = document.getElementById("time-picker-modal");
+const closeTimeModalBtn = document.getElementById("close-time-modal-btn");
+const customTimeInput = document.getElementById("custom-time-input");
+const saveLockedTimeBtn = document.getElementById("save-locked-time-btn");
 
 const queenPhoto = document.getElementById("queen-photo");
 const bdayPhoto = document.getElementById("bday-photo");
@@ -141,6 +158,18 @@ function getRandomImageUrl() {
   return `images/${encodeURIComponent(file)}`;
 }
 
+// Convert "19:30" to 12-hour display format e.g. "07:30 PM"
+function formatTime12H(time24) {
+  if (!time24) return "07:30 PM";
+  const [hStr, mStr] = time24.split(":");
+  let h = parseInt(hStr, 10);
+  const ampm = h >= 12 ? "PM" : "AM";
+  h = h % 12;
+  h = h ? h : 12;
+  const hDisplay = h < 10 ? "0" + h : h;
+  return `${hDisplay}:${mStr} ${ampm}`;
+}
+
 // ----------------------------------------------------
 // 1. DATA INITIALIZATION & NO-REPEAT LOGIC
 // ----------------------------------------------------
@@ -156,7 +185,6 @@ async function initAppData() {
     console.error("Data fetch error fallback", err);
   }
 
-  // Check if today is 21 May (Month 4 in JS is May)
   const now = new Date();
   isBirthdayToday = (now.getMonth() === 4 && now.getDate() === 21);
 
@@ -165,8 +193,9 @@ async function initAppData() {
 
   selectDailyContent();
   initOpeningScreen();
-
   startContinuousEmojiRain();
+
+  initNativeNotifications();
 }
 
 function getUsedQuoteIds() {
@@ -265,7 +294,144 @@ function markQuoteAsUsed(quoteId) {
 }
 
 // ----------------------------------------------------
-// 3. CONTINUOUS LOVE EMOJI RAIN ON ALL SCREENS
+// 3. ZERO-3RD-PARTY NOTIFICATIONS WITH CUSTOM LOCKED TIME
+// ----------------------------------------------------
+function initNativeNotifications() {
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').then((reg) => {
+      console.log('Service Worker registered:', reg.scope);
+    }).catch(err => console.log('SW registration error:', err));
+  }
+
+  const isLocked = localStorage.getItem(STORAGE_NOTIF_LOCKED) === "true";
+  const savedTime = localStorage.getItem(STORAGE_NOTIF_TIME) || "19:30";
+
+  if (isLocked && Notification.permission === 'granted') {
+    notifBellBtn.classList.add('active');
+    notifBtnText.textContent = `Rozana ${formatTime12H(savedTime)} reminder locked hai ❤️`;
+    scheduleDailyNotification(savedTime);
+  }
+
+  // Bell Button Click
+  notifBellBtn.addEventListener('click', async () => {
+    if (!('Notification' in window)) {
+      alert("Meri jaan aap k browser mein notifications support nahi hain.");
+      return;
+    }
+
+    // Check if time is already locked
+    const alreadyLocked = localStorage.getItem(STORAGE_NOTIF_LOCKED) === "true";
+    if (alreadyLocked) {
+      const lockedTime = localStorage.getItem(STORAGE_NOTIF_TIME) || "19:30";
+      alert(`Aneeza meri jaan, aap ka notification time (${formatTime12H(lockedTime)}) pehle se locked hai!\n\nYe time ab changeable nahi hai jab tak aap Saad ko bol kar code se change na karwao. 😉❤️`);
+      return;
+    }
+
+    // Request permission if not granted
+    let permission = Notification.permission;
+    if (permission !== 'granted') {
+      permission = await Notification.requestPermission();
+    }
+
+    if (permission === 'granted') {
+      // Open Time Selection Modal
+      timePickerModal.classList.remove('hidden');
+    } else {
+      alert("Meri jaan notification allow karein ta k mera paigham time par mil sake.");
+    }
+  });
+
+  // Close Modal Button
+  closeTimeModalBtn.addEventListener('click', () => {
+    timePickerModal.classList.add('hidden');
+  });
+
+  // Save Locked Time Button
+  saveLockedTimeBtn.addEventListener('click', () => {
+    const chosenTime = customTimeInput.value || "19:30";
+    
+    // Save and Lock!
+    localStorage.setItem(STORAGE_NOTIF_TIME, chosenTime);
+    localStorage.setItem(STORAGE_NOTIF_LOCKED, "true");
+
+    timePickerModal.classList.add('hidden');
+    notifBellBtn.classList.add('active');
+    notifBtnText.textContent = `Rozana ${formatTime12H(chosenTime)} reminder locked hai ❤️`;
+
+    // Trigger instant test notification
+    triggerTestNotification(chosenTime);
+
+    // Schedule daily alarm
+    scheduleDailyNotification(chosenTime);
+
+    alert(`Meri jaan! Aap ka daily time ${formatTime12H(chosenTime)} par lock ho gaya hai.\n\nAb ye time change nahi ho sakta jab tak aap Saad ko bol kar code mein change na karwao! 🥰`);
+  });
+}
+
+function triggerTestNotification(timeStr) {
+  const display = formatTime12H(timeStr);
+  if (navigator.serviceWorker && navigator.serviceWorker.controller) {
+    navigator.serviceWorker.controller.postMessage({
+      type: 'SHOW_NOTIFICATION',
+      title: 'Saad ❤️ Aneeza',
+      body: `Meri jaan aap ka daily time ${display} par lock ho gaya hai! Rozana isi waqt mera paigham aayega... 🥰`
+    });
+  } else if ('Notification' in window && Notification.permission === 'granted') {
+    new Notification('Saad ❤️ Aneeza', {
+      body: `Meri jaan aap ka daily time ${display} par lock ho gaya hai! Rozana isi waqt mera paigham aayega... 🥰`,
+      icon: 'images/WhatsApp%20Image%202026-11-21%20at%205.18.36%20PM.jpeg'
+    });
+  }
+}
+
+function scheduleDailyNotification(time24) {
+  const [hStr, mStr] = (time24 || "19:30").split(":");
+  const targetH = parseInt(hStr, 10);
+  const targetM = parseInt(mStr, 10);
+
+  const now = new Date();
+  const target = new Date();
+  target.setHours(targetH, targetM, 0, 0);
+
+  if (now.getTime() >= target.getTime()) {
+    target.setDate(target.getDate() + 1);
+  }
+
+  const delayMs = target.getTime() - now.getTime();
+  console.log(`[Alarm Scheduled] Next notification at ${time24} in ${(delayMs / (1000 * 60)).toFixed(1)} mins.`);
+
+  if (window._saadDailyTimer) {
+    clearTimeout(window._saadDailyTimer);
+  }
+
+  window._saadDailyTimer = setTimeout(() => {
+    if (Notification.permission === 'granted') {
+      const msgs = [
+        "Meri jaan time ho gaya hai! Aaj k 3 naye quotes aap ka intezar kar rahe hain... ❤️",
+        "Aneeza meri jaan, portal mein aaj k 3 pyare quotes khul chuke hain, aao dekho maine kya likha hai... 💌",
+        "Meri pyari begum! Aaj k naye quotes unlock ho gaye hain, portal kholo meri jaan... 🌸"
+      ];
+      const selectedMsg = getRandom(msgs);
+
+      if (navigator.serviceWorker && navigator.serviceWorker.controller) {
+        navigator.serviceWorker.controller.postMessage({
+          type: 'SHOW_NOTIFICATION',
+          title: 'Saad Ka Paigham ❤️ Aneeza',
+          body: selectedMsg
+        });
+      } else {
+        new Notification('Saad Ka Paigham ❤️ Aneeza', {
+          body: selectedMsg,
+          icon: 'images/WhatsApp%20Image%202026-11-21%20at%205.18.36%20PM.jpeg'
+        });
+      }
+    }
+    scheduleDailyNotification(time24);
+  }, delayMs);
+}
+
+// ----------------------------------------------------
+// 4. CONTINUOUS LOVE EMOJI RAIN ON ALL SCREENS
 // ----------------------------------------------------
 function startContinuousEmojiRain() {
   for (let i = 0; i < 28; i++) {
@@ -333,7 +499,7 @@ function triggerBurstAt(x, y) {
 }
 
 // ----------------------------------------------------
-// 4. OPENING SCREEN & PHOTO
+// 5. OPENING SCREEN & PHOTO
 // ----------------------------------------------------
 function initOpeningScreen() {
   photoFrame.classList.remove(...FRAME_ANIMATIONS);
@@ -364,7 +530,7 @@ function initOpeningScreen() {
 }
 
 // ----------------------------------------------------
-// 5. FLOW ROUTER (21 MAY VS NORMAL DAYS)
+// 6. FLOW ROUTER (21 MAY VS NORMAL DAYS)
 // ----------------------------------------------------
 startBtn.addEventListener("click", (e) => {
   const rect = startBtn.getBoundingClientRect();
@@ -390,7 +556,7 @@ claimBdayQuoteBtn.addEventListener("click", () => {
 });
 
 // ----------------------------------------------------
-// 6. STAGE 1: DESIRE QUESTION & FULLSCREEN SAAD SHIFT
+// 7. STAGE 1: DESIRE QUESTION & FULLSCREEN SAAD SHIFT
 // ----------------------------------------------------
 let userQ1Choice = "";
 let userRevChoice = "";
@@ -513,7 +679,7 @@ function showVerdict() {
 }
 
 // ----------------------------------------------------
-// 7. STAGE 2: ROMANTIC SENTENCE TO SAAD (WITH TRICK)
+// 8. STAGE 2: ROMANTIC SENTENCE TO SAAD (WITH TRICK)
 // ----------------------------------------------------
 function startStage2() {
   currentQuoteStep = 2;
@@ -574,7 +740,7 @@ submitS2Btn.addEventListener("click", () => {
 });
 
 // ----------------------------------------------------
-// 8. STAGE 3: HOW INTENSELY QUESTION
+// 9. STAGE 3: HOW INTENSELY QUESTION
 // ----------------------------------------------------
 function startStage3() {
   currentQuoteStep = 3;
@@ -623,7 +789,7 @@ function onSelectStage3(selectedOpt, btnElement) {
 }
 
 // ----------------------------------------------------
-// 9. QUOTE RENDERER & TRICKY 3-QUOTE STOP
+// 10. QUOTE RENDERER & TRICKY 3-QUOTE STOP
 // ----------------------------------------------------
 function renderQuote(stepNumber, isBirthdayDirect = false) {
   verdictPanel.classList.add("hidden");
@@ -677,7 +843,7 @@ refusalCloseBtn.addEventListener("click", () => {
 });
 
 // ----------------------------------------------------
-// 10. PROGRESS BAR & EXIT
+// 11. PROGRESS BAR & EXIT
 // ----------------------------------------------------
 function updateProgressBar(step) {
   progStep1.classList.remove("active", "completed");
@@ -717,7 +883,7 @@ reopenPortalBtn.addEventListener("click", () => {
 });
 
 // ----------------------------------------------------
-// 11. SAAD'S SECRET REPLIES VIEWER & EXPORT
+// 12. SAAD'S SECRET REPLIES VIEWER & EXPORT
 // ----------------------------------------------------
 let badgeClickCount = 0;
 openingBadgeWrapper.addEventListener("click", () => {

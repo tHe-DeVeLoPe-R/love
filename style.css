@@ -1019,6 +1019,40 @@ html, body {
   cursor: pointer;
 }
 
+/* 7:30 PM Notification Bell Button */
+.notif-bell-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 140, 180, 0.3);
+  color: #ffd0e0;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.25s ease;
+  margin-top: 4px;
+}
+
+.notif-bell-btn:hover, .notif-bell-btn:active {
+  background: rgba(255, 42, 112, 0.2);
+  border-color: var(--rose-primary);
+  color: #ffffff;
+}
+
+.notif-bell-btn.active {
+  background: rgba(16, 185, 129, 0.18);
+  border-color: #10b981;
+  color: #a7f3d0;
+}
+
+.bell-icon {
+  font-size: 0.9rem;
+}
+
 .btn-glow {
   position: absolute;
   top: 0;
