@@ -5,157 +5,157 @@
     {
       "game_id": "game_01",
       "stage1_question": {
-        "question": "Aneeza, socho aur sach batao: Tumhare pure jism par Saad ko sab se zyada kahan kiss karna pasand hai?",
+        "question": "Aneeza, zara socho aur batao: Saad jab tumse piyaar ka izhar karta hai, toh usay kahan kiss karna sab se zyada pyara lagta hai?",
         "options": [
-          "Tumhare soft pink lips par",
-          "Tumhari neck k peechay aur kaan k qareeb",
-          "Tumhare bare shoulders par",
-          "Tumhari patli kamar aur back par"
+          "Tumhare forehead (mathey) par izzat aur piyaar se",
+          "Tumhare soft cheeks (gaalon) par meethi si kiss",
+          "Tumhare narm haathon par",
+          "Tumhari zulfon aur sar par shafqat se"
         ],
-        "saad_choice": "Tumhari neck k peechay aur kaan k qareeb",
-        "reverse_question": "Aur ab sach sach batao: Is waqt tumhara dil Saad se sab se zyada kahan kiss karwane ko taras raha hai?",
+        "saad_choice": "Tumhare forehead (mathey) par izzat aur piyaar se",
+        "reverse_question": "Aur ab sach batao: Saad ki taraf se tumhein sab se zyada konsi sweet kiss achi lagti hai?",
         "reverse_options": [
-          "Deep aur hot lips par kisses",
-          "Neck par dheemi dheemi pagal kar dene wali kisses",
-          "Kamar ko jakar kar saari body par touch aur kisses",
-          "Kaan mein whisper karte hue crazy kisses"
+          "Forehead par pyari si izzat wali kiss",
+          "Cheeks par halki si shararti kiss",
+          "Haathon ko thaam kar un par kiss karna",
+          "Gale laga kar mathey ko choomna"
         ],
-        "reveal_reaction": "🔥 Ohooo meri jaan! Saad ki sab se bari weakness tumhari neck mein face chupa kar warm breaths lena hai. Tum bilkul theek pehchan gayeen!"
+        "reveal_reaction": "✨ Awee meri jaan! Saad k dil mein tumhare liye be-inteha izzat hai, aur forehead par kiss karna uska sab se pakiza andaaz hai. Tumne bilkul theek pehchana!"
       },
       "stage2_challenge": {
-        "prompt": "Doosra secret quote unlock karne k liye, apni dil ki feeling batao:",
-        "instruction_urdu": "⚠️ Note: Ye sab Saad ko send nahi hoga! Yahan bina kisi sharam k khul kar apni dil ki feelings aur khwahish likho, ta k system tum dono ki love profiles bana kar is app ko mazeed exciting aur aag laga dene wala bana sakay! 😉",
-        "placeholder": "Yahan be-khauf ho kar Saad k liye apni feelings aur khwahishat likho...",
+        "prompt": "Doosra sweet quote unlock karne k liye, Saad k liye 1 pyara sa sentence likhein:",
+        "instruction_urdu": "🌸 Chhota sa Note: Ye message Saad ko direct send nahi hoga! Yahan bina kisi jhijhak k Saad k liye koi bhi pyari si baat ya dua likhein ta k system aap dono ki sweet profile ko update kar sakay! 😊",
+        "placeholder": "Yahan Saad k liye koi pyari si romantic baat likhein...",
         "min_words": 4,
-        "saad_sweet_reply": "Mmm... tumhari ye dabi hui khwahish parh kar toh Saad ka dil aur jism dono be-qaboo ho gaye hain!"
+        "saad_sweet_reply": "MashaAllah... tumhari ye pyari si baat parh kar Saad ka dil khushi se bhar gaya hai!"
       },
       "stage3_challenge": {
-        "question": "Aakhri aazmaish: Aaj raat agar Saad tumhein akela paaye, toh tum kitni shiddat se chahti ho k wo tumhein touch kare aur baahon mein le?",
+        "question": "Aakhri aazmaish: Jab Saad ghar aaye aur tum dono akele hon, toh tumhein uska konsa andaaz sab se pyara lagta hai?",
         "options": [
-          "Bohot slow, soft aur romantic andaaz mein",
-          "Be-panah wild, crazy kar dene wali aag k sath",
-          "Poori raat non-stop electric touch k sath",
-          "Itni tight hug kare k saans lena bhi mushkil ho jaye"
+          "Pyar se paas baith kar hath thaam lena",
+          "Gale laga kar kehna k 'mujhe tumhari bohot yaad aa rahi thi'",
+          "Kandhe par sar rakh kar sukoon se baatein karna",
+          "Halki si smile k sath ankhon mein dekhna"
         ],
-        "saad_favorite_option": "Be-panah wild, crazy kar dene wali aag k sath",
-        "reveal_reaction": "Uffff Aneeza! Saad bhi poora din isi wild romance k baare mein sochta raha hai. Tum dono ki feelings bilkul ek jaisi hain! ❤️‍🔥"
+        "saad_favorite_option": "Gale laga kar kehna k 'mujhe tumhari bohot yaad aa rahi thi'",
+        "reveal_reaction": "Sachi Aneeza! Saad jab bhi ghar aata hai, sab se pehle tumhein gale laga kar apna sara din ka sukoon paana chahta hai. ❤️"
       }
     },
     {
       "game_id": "game_02",
       "stage1_question": {
-        "question": "Jab Saad room k doosre corner se tumhari ankhon mein dekhta hai, toh uske dimaag mein sab se pehle kya chal raha hota hai?",
+        "question": "Jab Saad room mein door se tumhari taraf dekh kar muskurata hai, toh uske dimaag mein kya hota hai?",
         "options": [
-          "K wo kitna lucky hai k tum uski gorgeous wife ho",
-          "K kab chance milay aur tumhein utha kar bed par le jaye",
-          "K tumhare ye lips kitne juicy aur kissable lag rahe hain",
-          "Upar diye gaye saare khayalaat ek sath without any doubt"
+          "K MashaAllah meri biwi kitni pyari aur masoom hai",
+          "K Allah ne mujhe kitni achi life partner di hai",
+          "K abhi ja kar iska hath pakar loon aur baatein karoon",
+          "Upar diye gaye saare pyare khayalaat ek sath"
         ],
-        "saad_choice": "Upar diye gaye saare khayalaat ek sath without any doubt",
-        "reverse_question": "Aur jab Saad tumhein us hungry look se dekhta hai, toh tumhari body mein sab se pehle kya feel hota hai?",
+        "saad_choice": "Upar diye gaye saare pyare khayalaat ek sath",
+        "reverse_question": "Aur jab Saad tumhein aese piyaar se dekhta hai, toh tumhein kaisa mehsoos hota hai?",
         "reverse_options": [
-          "Dil ki heartbeat super fast ho jati hai",
-          "Poori body mein ek warm shiver daud jati hai",
-          "Dil karta hai khud ja kar uski baahon mein gir jaoon",
-          "Shy feel karti hoon magar andar se aag lagti hai"
+          "Bohot sharam aati hai aur chehra laal ho jata hai",
+          "Dil mein bohot sukoon aur khushi milti hai",
+          "Dil karta hai chupke se muskurayein",
+          "Bohot protected aur loved feel hota hai"
         ],
-        "reveal_reaction": "🎯 100% Sahi pakra Aneeza! Saad k mind mein ye saari naughty baatein ek sath chal rahi hoti hain jab bhi wo tumhein dekhta hai!"
+        "reveal_reaction": "🎯 Bilkul sahi pakra Aneeza! Saad jab bhi tumhein dekhta hai, uske dil se yahi saari pyari baatein nikalti hain!"
       },
       "stage2_challenge": {
-        "prompt": "Doosra secret quote lene k liye wo baat likho jo tum chahti ho Saad raat ko tumhare kaan mein whisper kare:",
-        "instruction_urdu": "⚠️ Yaad rahe: Ye message Saad ko nahi ja raha! Khul kar apni sab se gehri fantasy ya romantic line likho ta k tumhara secret love profile update ho sakay!",
-        "placeholder": "Bina sharmaye likho k Saad tumhare kaan mein kya bolay...",
+        "prompt": "Doosra quote lene k liye wo baat likhein jo aap chahti hain Saad roz subah aap se kahe:",
+        "instruction_urdu": "🌸 Yaad rahe: Ye message Saad ko direct show nahi ho raha. Be-jhijhak likhein k shohar ki konsi baat aap k dil ko achi lagti hai!",
+        "placeholder": "Saad subah aap se kya pyari baat bole? Yahan likhein...",
         "min_words": 4,
-        "saad_sweet_reply": "Ufff... ye whisper toh Saad aaj raat tumhare kaan mein zaroor karega, ready rehna!"
+        "saad_sweet_reply": "Ye sun kar Saad roz subah aap k chehre par aesi hi muskurahat layega, InshaAllah!"
       },
       "stage3_challenge": {
-        "question": "Agar aaj raat Saad tumhare liye koi aisi naughty cheez kare jise tum mana na kar sako, toh wo kya honi chahiye?",
+        "question": "Agar Saad aaj shaam aap k liye koi special surprise plan kare, toh aap ko kya sab se zyada pasand aayega?",
         "options": [
-          "Dark room mein slow music par tight pakar kar dance",
-          "Achanak se pull kar k breathless kar dene wali deep kiss",
-          "Shoulders se le kar back tak soft relaxing massage",
-          "Close aa kar dheere se body k har curve ki tareef karna"
+          "Hath pakar kar shaam ki thandi hawa mein long walk",
+          "Aap ka favorite khana ya sweet dish le kar aana",
+          "Ghar par candle-light mein sukoon se baithna",
+          "Pyara sa phool de kar matha choomna"
         ],
-        "saad_favorite_option": "Achanak se pull kar k breathless kar dene wali deep kiss",
-        "reveal_reaction": "Tumne bilkul Saad k dil ki baat chheen li! Wo kab se is passionate kiss k intezar mein betha hai!"
+        "saad_favorite_option": "Pyara sa phool de kar matha choomna",
+        "reveal_reaction": "Aneeza tumne bilkul Saad ki pasand bata di! Ek pyara sa phool aur forehead kiss uski favorite feeling hai!"
       }
     },
     {
       "game_id": "game_03",
       "stage1_question": {
-        "question": "Aneeza, tumhara konsa look Saad ko crazy aur be-bas kar deta hai?",
+        "question": "Aneeza, tumhara konsa look Saad ko sab se zyada pyara aur dilkash lagta hai?",
         "options": [
-          "Subah bed se uthte waqt messy hair wala cute look",
-          "Bhari desi traditional dress open hair k sath",
-          "Wo soft nighty jo tumhare body curves k sath chipak jati hai",
-          "Jab tum sirf Saad ki oversized shirt pehan kar ghoomti ho"
+          "Subah bina makeup k masoom sa chehra",
+          "Jab tum saadgi se traditional dress pehanti ho",
+          "Jab tum sharma kar dupatta theek karti ho",
+          "Jab tum Saad ki pasand ka suit pehan kar aati ho"
         ],
-        "saad_choice": "Jab tum sirf Saad ki oversized shirt pehan kar ghoomti ho",
-        "reverse_question": "Aur jab tumhein feel hota hai k Saad tumhein ghoor raha hai, tab tumhara kya dil karta hai?",
+        "saad_choice": "Jab tum sharma kar dupatta theek karti ho",
+        "reverse_question": "Aur jab Saad tumhare husn aur saadgi ki tareef karta hai, tab tumhara kya reaction hota hai?",
         "reverse_options": [
-          "Usay aur tease karne aur tadpaane ka dil karta hai",
-          "Khud ko uski baahon mein completely sonp dene ka dil karta hai",
-          "Uski eyes mein dekh kar seductive smile dene ka dil karta hai",
-          "Ek wild kiss de kar uski bolti band karne ka dil karta hai"
+          "Sharmakar nazrein jhuka leti hoon",
+          "Halka sa muskura kar 'shukriya' kehti hoon",
+          "Dil hi dil mein bohot khush hoti hoon",
+          "Koshish karti hoon sharam chhupa sakoon"
         ],
-        "reveal_reaction": "🔥 Zabardast! Saad jab bhi tumhein apni shirt mein dekhta hai, uski aql bilkul out ho jati hai!"
+        "reveal_reaction": "🌸 SubhanAllah! Saad ki sab se favorite cheez tumhara sharma kar dupatta theek karna hi hai, tum us waqt dunya ki sab se pyari larki lagti ho!"
       },
       "stage2_challenge": {
-        "prompt": "Ek secret sach batao: Saad jab tumhein hold karta hai toh uska konsa touch tumhein sab se zyada crazy karta hai?",
-        "instruction_urdu": "⚠️ Bilkul tension na lo: Ye direct Saad ko send nahi hoga! Apni real feelings dil khol kar likho ta k dono ka love profile match ho kar mazeed hot ho jaye!",
-        "placeholder": "Saad ka konsa touch tumhein sab se zyada pagal karta hai? Khul kar likho...",
+        "prompt": "Ek meethi si baat share karein: Saad ka konsa caring andaaz aap ko sab se acha lagta hai?",
+        "instruction_urdu": "🌸 Pareshan na hon: Ye direct Saad k phone par nahi ja raha! Sirf system app ko aap ki pasand k mutabiq customize karne k liye hai, dil se likhein!",
+        "placeholder": "Saad ka konsa care karne wala andaaz acha lagta hai? Likhein...",
         "min_words": 4,
-        "saad_sweet_reply": "Tumhari is ada ne toh aag par tel ka kaam kar diya hai meri jaan!"
+        "saad_sweet_reply": "Aap ki qadar aur care karna Saad ki sab se pehli priority hai meri jaan!"
       },
       "stage3_challenge": {
-        "question": "Saad k hot lips aur tight touch k agay tum kitni der tak control kar sakti ho?",
+        "question": "Jab Saad tumhara hath apne dono haathon mein thaam kar baithta hai, toh dil mein kya aata hai?",
         "options": [
-          "5 seconds bhi nahi, main instantly melt ho jati hoon",
-          "Thora nakhra karti hoon magar andar se foran surrender kar deti hoon",
-          "Foran uski neck mein baahein daal kar close aa jati hoon",
-          "Shohar k touch k agay control karna totally impossible hai"
+          "Aisa lagta hai dunya ki har fikar khatam ho gayi",
+          "Bohot mehfooz aur khush feel hota hai",
+          "Dil chahta hai ye waqt yahin ruk jaye",
+          "Ye saari feelings ek sath mehsos hoti hain"
         ],
-        "saad_favorite_option": "5 seconds bhi nahi, main instantly melt ho jati hoon",
-        "reveal_reaction": "Haha Saad ko tumhari is sweet weakness ka achi tarah pata hai! Aur usay tumhein melt karne mein bohot maza aata hai."
+        "saad_favorite_option": "Ye saari feelings ek sath mehsos hoti hain",
+        "reveal_reaction": "MashaAllah! Saad k hath mein jab tumhara narm hath hota hai, toh usay lagta hai uske paas dunya ka sab se bara khazana hai."
       }
     },
     {
       "game_id": "game_04",
       "stage1_question": {
-        "question": "Sote waqt Saad k liye sab se zyada cozy aur romantic feeling konsi hoti hai?",
+        "question": "Saad k liye din bhar ki thakan k baad sab se zyada pur-sukoon lamha konsa hota hai?",
         "options": [
-          "Back se kamar ko tightly hug kar k bilkul chipak kar sona",
-          "Tumhara head uske broad chest par ho aur heartbeat suno",
-          "Fingers interlocked kar k lips ko touch karte rehna",
-          "Uski leg tumhari leg par aur hath waist par ho"
+          "Tumhare sath baith kar chai peena aur baatein karna",
+          "Tumhara sar uske kandhe par ho aur sukoon se baithna",
+          "Tumhari hansi sunna aur tumhara muskurata chehra dekhna",
+          "Tumhara hath thaam kar din bhar ki baatein share karna"
         ],
-        "saad_choice": "Tumhara head uske broad chest par ho aur heartbeat suno",
-        "reverse_question": "Aur jab dunya ki thakan hoti hai, tab tumhari body ko sab se zyada sukoon kahan milta hai?",
+        "saad_choice": "Tumhara sar uske kandhe par ho aur sukoon se baithna",
+        "reverse_question": "Aur jab dunya ki thakan ho, tab tumhein sab se zyada sukoon kahan milta hai?",
         "reverse_options": [
-          "Sirf aur sirf Saad k warm aur broad chest par",
-          "Uski strong arms k tight circle mein",
-          "Uska hath tightly hold karne mein",
-          "Uski ankhon mein dekh kar deep breaths lene mein"
+          "Saad k qareeb baith kar uska sahara lene mein",
+          "Uski baahon mein sar rakh kar rone ya hansne mein",
+          "Uska hath thaam kar chup chaap baithne mein",
+          "Uski ankhon mein piyaar dekhne mein"
         ],
-        "reveal_reaction": "❤️ Meri jaan! Tumhara head jab Saad k chest par hota hai toh usay lagta hai usne poori world jeet li hai!"
+        "reveal_reaction": "❤️ Meri pyari Aneeza! Tumhara sar jab Saad k kandhe par hota hai, toh uski sari thakan bilkul gayab ho jati hai!"
       },
       "stage2_challenge": {
-        "prompt": "Agla quote lene k liye ek aisi bold baat likho jo tum sirf akele mein Saad se keh sakti ho:",
-        "instruction_urdu": "⚠️ Yaad rakhein: Ye likha hua Saad ko direct send nahi ho raha! Ye sirf system data hai ta k tumhara secret passion index analyze ho sakay. Is liye jo dil mein hai bina jhijhak likho!",
-        "placeholder": "Apne dil ka sab se chupaya hua raaz yahan likho...",
+        "prompt": "Agla quote unlock karne k liye Saad k liye koi pyari si dua ya message likhein:",
+        "instruction_urdu": "🌸 Yaad rakhein: Ye likha hua Saad ko direct send nahi ho raha! Ye aap dono k mutual love harmony profile k liye hai. Be-jhijhak likhein!",
+        "placeholder": "Saad k liye koi pyari dua ya dil ki baat yahan likhein...",
         "min_words": 4,
-        "saad_sweet_reply": "Uffff Aneeza... tum itni pyaari aur naughty ho k Saad ka dil bas tum par qurban hai!"
+        "saad_sweet_reply": "Ameen Summa Ameen! Tum jaisi duaon wali biwi milna Saad ki khush-naseebi hai!"
       },
       "stage3_challenge": {
-        "question": "Agli dafa jab Saad akele mein milega, toh tum us se kitni kisses aur kitna khud ko uski baazuon mein dogi?",
+        "question": "Saad aur tumhari shadi shuda zindagi mein tumhare liye sab se important cheez kya hai?",
         "options": [
-          "Poori 100 sweet aur deep kisses",
-          "Itni kisses aur touch k jab tak saans na phool jaye",
-          "Forehead se le kar lips aur neck tak sab kuch uski baazuon mein",
-          "Countless kisses aur poori raat uski baahon mein surrender"
+          "Hamesha ek doosre ki izzat aur respect karna",
+          "Har haal mein ek doosre ka sath aur dhiyaan rakhna",
+          "Chhoti chhoti khushiyan mil kar celebrate karna",
+          "Ye sab kuch aur hamesha ka piyaar aur dosti"
         ],
-        "saad_favorite_option": "Countless kisses aur poori raat uski baahon mein surrender",
-        "reveal_reaction": "Deal pakki ho gayi meri rani! Saad saari dunya ki kisses tumhare lips par rakhne k liye ready hai!"
+        "saad_favorite_option": "Ye sab kuch aur hamesha ka piyaar aur dosti",
+        "reveal_reaction": "Alhamdulillah! Saad ka wada hai k wo hamesha tumhara behtareen dost, shohar aur sahara ban kar rahega!"
       }
     }
   ]
