@@ -1,14 +1,7 @@
 // ==========================================================
-// SAAD & ANEEZA - INTERACTIVE LOVE SANCTUARY (ROMAN URDU CASUAL EDITION)
-// Features:
-// 1. Natural casual tone (kisses, touch, warm hugs)
-// 2. Full-screen DULL / BLUR shifting overlay:
-//    "Shifting to Saad's profile to get his answer against your answer..."
-// 3. Stage 2 tricky prompt so she writes openly without shame
-// 4. Strict 3 Quotes Quota Limit with a teasing refusal panel afterwards!
-// 5. Continuous love emoji rain on all screens + Random photo on quote screen
-// 6. 21 May Salgirah mode bypasses questions directly to birthday quote
-// 7. Secret Saad Admin: Tap top badge 3 times to view/export her answers
+// SAAD & ANEEZA - INTERACTIVE LOVE SANCTUARY (PERSONAL DIRECT-TALK EDITION)
+// Rule: Every button, message, loader and prompt talks directly to her:
+// "Meri jaan yahan click karo", "Ruko meri jaan, main dekh raha hoon...", etc.
 // ==========================================================
 
 const HER_IMAGES = [
@@ -47,9 +40,7 @@ const HER_IMAGES = [
 
 const EMOJI_THEMES = [
   { name: "pure_hearts", emojis: ["💖", "❤️", "💕", "💘", "💗", "💓", "💞", "✨"] },
-  { name: "hot_kisses", emojis: ["💋", "🫦", "🔥", "😘", "👩‍❤️‍💋‍👨", "💄", "🌶️", "✨"] },
-  { name: "passionate", emojis: ["❤️‍🔥", "💋", "💖", "🔥", "🌹", "✨", "🥰", "💌"] },
-  { name: "goddess", emojis: ["👑", "💎", "✨", "💖", "🌹", "💍", "💋", "👸"] }
+  { name: "sweet_love", emojis: ["🥰", "🌹", "✨", "💖", "💌", "🌸", "💍", "👸"] }
 ];
 
 const FRAME_ANIMATIONS = ["anim-heartbeat", "anim-float", "anim-glow"];
@@ -65,7 +56,7 @@ let currentDayGame = null;
 let currentQuoteStep = 1;
 let dailyThreeQuotes = [];
 let isBirthdayToday = false;
-let currentEmojiSet = ["💖", "❤️", "💋", "🔥", "✨", "🌹", "🫦"];
+let currentEmojiSet = ["💖", "❤️", "🥰", "✨", "🌹", "🌸", "💌"];
 
 // DOM Elements
 const emojiContainer = document.getElementById("emoji-container");
@@ -169,14 +160,12 @@ async function initAppData() {
   const now = new Date();
   isBirthdayToday = (now.getMonth() === 4 && now.getDate() === 21);
 
-  // Set randomized theme for today
   const chosenTheme = getRandom(EMOJI_THEMES);
   currentEmojiSet = chosenTheme.emojis;
 
   selectDailyContent();
   initOpeningScreen();
 
-  // Start continuous emoji rain on every single screen
   startContinuousEmojiRain();
 }
 
@@ -196,7 +185,7 @@ function saveUsedQuoteId(id) {
     if (!used.includes(id)) {
       used.push(id);
       localStorage.setItem(STORAGE_USED_QUOTES, JSON.stringify(used));
-      console.log(`[Quote Saved] ${id} marked as used. Total used: ${used.length}`);
+      console.log(`[Quote Saved] ${id} marked as used.`);
     }
   } catch (e) {
     console.error("LocalStorage write error", e);
@@ -206,7 +195,6 @@ function saveUsedQuoteId(id) {
 function selectDailyContent() {
   const dayOfYear = Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
 
-  // Select game from desires.json
   if (desiresData && desiresData.daily_games && desiresData.daily_games.length > 0) {
     const gameIdx = dayOfYear % desiresData.daily_games.length;
     currentDayGame = desiresData.daily_games[gameIdx];
@@ -214,15 +202,12 @@ function selectDailyContent() {
 
   if (allQuotes && allQuotes.length > 0) {
     if (isBirthdayToday) {
-      // Guaranteed exclusive birthday quote only on May 21!
       const bdayQuote = allQuotes.find(q => q.quote_id === "birthdayquote") || allQuotes[0];
       dailyThreeQuotes = [bdayQuote];
     } else {
-      // Normal Day: Exclude birthdayquote and filter out previously used quotes
       const usedIds = getUsedQuoteIds();
       let eligible = allQuotes.filter(q => q.quote_id !== "birthdayquote" && !usedIds.includes(q.quote_id));
 
-      // Reset pool when all 1,100 quotes have been read
       if (eligible.length < 3) {
         eligible = allQuotes.filter(q => q.quote_id !== "birthdayquote");
         localStorage.removeItem(STORAGE_USED_QUOTES);
@@ -320,8 +305,8 @@ function createFallingEmoji(emojiSet, delayMs = 0) {
 }
 
 function triggerBurstAt(x, y) {
-  const hotEmojis = ["💋", "❤️‍🔥", "💖", "🔥", "🫦", "🌹", "✨", "💘", "🎂"];
-  const particles = 28;
+  const hotEmojis = ["💖", "❤️", "🥰", "🌸", "✨", "💌"];
+  const particles = 26;
 
   for (let i = 0; i < particles; i++) {
     const p = document.createElement("div");
@@ -464,29 +449,26 @@ function onSelectRev(selectedOpt, btnElement) {
   revOptions.querySelectorAll(".option-btn").forEach(b => b.classList.remove("selected"));
   btnElement.classList.add("selected");
 
-  // Save her Stage 1 reply!
   logHerReply(
-    "Marhala 1: Shohar Ki Khwahish Aur Reverse Sawaal",
+    "Marhala 1: Shohar Ki Pasand Aur Reverse Sawaal",
     `${currentDayGame.stage1_question.question} | Reverse: ${currentDayGame.stage1_question.reverse_question}`,
-    `Saad k baare mein andaza: "${userQ1Choice}" | Aneeza khud kahan chahti hai: "${userRevChoice}"`,
+    `Mera andaza: "${userQ1Choice}" | Aneeza khud kahan chahti hai: "${userRevChoice}"`,
     {
       saad_choice: currentDayGame.stage1_question.saad_choice,
       matched: userQ1Choice.trim().toLowerCase() === currentDayGame.stage1_question.saad_choice.trim().toLowerCase()
     }
   );
 
-  // Trigger Fullscreen Dull & Saad Shift
   triggerSaadShiftLoader(
-    "Shifting to Saad's Profile...",
-    "Saad ki secret profile se uska live answer aur reaction laya ja raha hai...",
-    "Connecting directly to Saad's heart ❤️‍🔥",
+    "Ruko meri jaan, main dekh raha hoon...",
+    "Tumhare is jawab par mera kya dil keh raha hai, main apna reaction bhej raha hoon...",
+    "Saad tumhare jawab ko check kar raha hai... ❤️",
     () => {
       showVerdict();
     }
   );
 }
 
-// Real-time Dull & Shift Overlay Engine
 function triggerSaadShiftLoader(titleText, descText, statusText, onComplete) {
   shiftTitle.textContent = titleText;
   shiftDesc.textContent = descText;
@@ -495,11 +477,11 @@ function triggerSaadShiftLoader(titleText, descText, statusText, onComplete) {
   saadShiftOverlay.classList.remove("hidden");
 
   setTimeout(() => {
-    shiftStatusText.textContent = "Analyzing Saad's response against your choice...";
+    shiftStatusText.textContent = "Maine tumhara jawab parh liya hai meri jaan...";
   }, 1200);
 
   setTimeout(() => {
-    shiftStatusText.textContent = "Saad's feelings confirmed! Delivering to Aneeza... 💌";
+    shiftStatusText.textContent = "Main tumhare liye quote unlock kar raha hoon... 💌";
   }, 2300);
 
   setTimeout(() => {
@@ -516,16 +498,16 @@ function showVerdict() {
   const isCorrect = (userQ1Choice.trim().toLowerCase() === s1.saad_choice.trim().toLowerCase());
 
   if (isCorrect) {
-    verdictIcon.textContent = "🎉🔥";
-    verdictTitle.textContent = "Wahhh! Kamaal Ka Match!";
-    verdictMsg.innerHTML = `<strong>Aneeza, tum toh Saad ki rooh tak ko pehchanti ho!</strong><br><br>${s1.reveal_reaction}<br><br>Aur ye sun kar k tumhara dil <em>"${userRevChoice}"</em> chahta hai, Saad ka khoon garma gaya hai!`;
-    showQuoteBtn.textContent = "Pehla Quote Parho (1 / 3) ✨";
+    verdictIcon.textContent = "🎉❤️";
+    verdictTitle.textContent = "Wahhh meri jaan! Bilkul theek!";
+    verdictMsg.innerHTML = `<strong>Aneeza, tum toh mere dil ki har baat pehle hi jaan leti ho!</strong><br><br>${s1.reveal_reaction}<br><br>Aur ye jaan kar k tumhein bhi <em>"${userRevChoice}"</em> acha lagta hai, mera dil bohot khush ho gaya hai!`;
+    showQuoteBtn.textContent = "Meri jaan pehla quote parho (1 / 3) ✨";
     showQuoteBtn.onclick = () => renderQuote(1);
   } else {
-    verdictIcon.textContent = "😜💋";
-    verdictTitle.textContent = "Hahaha qareeb pohanchi theen, meri jaan!";
-    verdictMsg.innerHTML = `Tumhara andaza tha <em>"${userQ1Choice}"</em>, magar Saad ki sab se bari kamzori asal mein hai: <br><strong>"${s1.saad_choice}"</strong>!<br><br>Lekin Saad tumhein kabhi haarne nahi dega kyun k wo tum se be-panah piyaar karta hai. Dekho usne tumhare liye kya likha hai:`;
-    showQuoteBtn.textContent = "Phir Bhi Quote 1 Claim Karo ❤️";
+    verdictIcon.textContent = "😊❤️";
+    verdictTitle.textContent = "Hahaha qareeb pohanch gayi theen meri jaan!";
+    verdictMsg.innerHTML = `Tumhara andaza tha <em>"${userQ1Choice}"</em>, magar mujhe sab se zyada pyara lagta hai: <br><strong>"${s1.saad_choice}"</strong>!<br><br>Lekin fikar na karo, main tumhein har haal mein apna piyaar dikhaunga. Dekho maine tumhare liye kya likha hai:`;
+    showQuoteBtn.textContent = "Meri jaan apna pehla quote parho ❤️";
     showQuoteBtn.onclick = () => renderQuote(1);
   }
 }
@@ -541,21 +523,21 @@ function startStage2() {
   stage2Panel.classList.remove("hidden");
 
   const s2 = currentDayGame.stage2_challenge;
-  s2Prompt.textContent = s2.prompt;
-  s2Instruction.innerHTML = `⚠️ <strong>Zaroori Note:</strong> Ye sab Saad ko send nahi hoga! Yahan bina kisi sharam k khul kar apni dil ki feelings aur khwahishat likho ta k system tum dono ki love profiles bana kar is app ko mazeed exciting aur aag laga dene wala bana sakay! 😉`;
-  s2Input.placeholder = s2.placeholder || "Yahan be-khauf ho kar Saad k liye apni feelings aur khwahishat likho...";
+  s2Prompt.textContent = "Meri jaan doosra quote kholne k liye, mere liye 1 pyari si romantic baat likho:";
+  s2Instruction.innerHTML = `🌸 <strong>Chhota sa Note:</strong> Ye message Saad ko direct send nahi hoga! Yahan bina kisi jhijhak k mere liye koi bhi pyari si baat ya dua likho ta k system hum dono ki sweet profile ko update kar sakay! 😉`;
+  s2Input.placeholder = "Meri jaan yahan mere liye koi pyari si romantic baat likho...";
   s2Input.value = "";
-  s2Counter.textContent = `Kam az kam ${s2.min_words} alfaaz likhein ❤️`;
+  s2Counter.textContent = `Kam az kam ${s2.min_words} alfaaz likho meri jaan ❤️`;
 }
 
 s2Input.addEventListener("input", () => {
   const words = s2Input.value.trim().split(/\s+/).filter(w => w.length > 0);
   const minWords = currentDayGame.stage2_challenge.min_words || 4;
   if (words.length >= minWords) {
-    s2Counter.textContent = `✨ ${words.length} pur-kashish alfaaz! Quote 2 kholne k liye tayyar.`;
+    s2Counter.textContent = `✨ ${words.length} pyare alfaaz! Doosra quote kholne k liye ready.`;
     s2Counter.style.color = "#10b981";
   } else {
-    s2Counter.textContent = `${words.length} / ${minWords} alfaaz likhe gaye... aur likhein ❤️`;
+    s2Counter.textContent = `${words.length} / ${minWords} alfaaz likhay gaye... thora aur likho meri jaan ❤️`;
     s2Counter.style.color = "#e2b3c7";
   }
 });
@@ -566,13 +548,12 @@ submitS2Btn.addEventListener("click", () => {
   const minWords = currentDayGame.stage2_challenge.min_words || 4;
 
   if (words.length < minWords) {
-    alert(`Aneeza meri jaan, kam az kam ${minWords} alfaaz likho ta k tumhara secret quote unlock ho sakay! 💋`);
+    alert(`Meri jaan, kam az kam ${minWords} alfaaz likho ta k tumhara agla quote khul sakay! 🌸`);
     return;
   }
 
-  // Save her Stage 2 sentence!
   logHerReply(
-    "Marhala 2: Aneeza Ki Secret Khwahish (Trick Question)",
+    "Marhala 2: Aneeza Ka Message (Tricky Question)",
     currentDayGame.stage2_challenge.prompt,
     textVal,
     { word_count: words.length }
@@ -581,11 +562,10 @@ submitS2Btn.addEventListener("click", () => {
   const rect = submitS2Btn.getBoundingClientRect();
   triggerBurstAt(rect.left + rect.width / 2, rect.top + rect.height / 2);
 
-  // Trigger Fullscreen Dull & Saad Shift for Stage 2
   triggerSaadShiftLoader(
-    "Syncing with Saad's Mind...",
-    "Aneeza k alfaz parh kar Saad k dil ki dharkan synchronize ho rahi hai...",
-    "Unlocking Saad's secret quote for Aneeza... 💌",
+    "Meri jaan main tumhari baat parh raha hoon...",
+    "Tumhare in pyare alfaaz ne mere dil ko bohot khush kar diya hai...",
+    "Tumhare liye doosra quote unlock kiya ja raha hai... 💌",
     () => {
       stage2Panel.classList.add("hidden");
       renderQuote(2);
@@ -611,7 +591,7 @@ function startStage3() {
     const btn = document.createElement("button");
     btn.className = "option-btn";
     btn.type = "button";
-    btn.innerHTML = `<span>${opt}</span> <span>❤️‍🔥</span>`;
+    btn.innerHTML = `<span>${opt}</span> <span>❤️</span>`;
     btn.onclick = () => onSelectStage3(opt, btn);
     s3Options.appendChild(btn);
   });
@@ -621,9 +601,8 @@ function onSelectStage3(selectedOpt, btnElement) {
   s3Options.querySelectorAll(".option-btn").forEach(b => b.classList.remove("selected"));
   btnElement.classList.add("selected");
 
-  // Save her Stage 3 choice!
   logHerReply(
-    "Marhala 3: Raat Ka Junoon Aur Touch",
+    "Marhala 3: Dil Ka Sukoon",
     currentDayGame.stage3_challenge.question,
     selectedOpt,
     { saad_favorite: currentDayGame.stage3_challenge.saad_favorite_option }
@@ -632,11 +611,10 @@ function onSelectStage3(selectedOpt, btnElement) {
   const rect = btnElement.getBoundingClientRect();
   triggerBurstAt(rect.left + rect.width / 2, rect.top + rect.height / 2);
 
-  // Trigger Fullscreen Dull & Saad Shift for Stage 3
   triggerSaadShiftLoader(
-    "Final Heart Alignment with Saad...",
-    "Shifting to Saad's profile to compare his touch craving against yours...",
-    "Saad says: 'Tum meri ho aur hamesha meri rahogi' ❤️‍🔥",
+    "Aakhri quote tayyar ho raha hai meri jaan...",
+    "Maine tumhari pasand dekh li hai, ab tumhara aakhri special quote khul raha hai...",
+    "Main hamesha tumhara dhiyaan rakhunga meri jaan ❤️",
     () => {
       stage3Panel.classList.add("hidden");
       renderQuote(3);
@@ -655,10 +633,7 @@ function renderQuote(stepNumber, isBirthdayDirect = false) {
   const quoteObj = dailyThreeQuotes[stepNumber - 1] || dailyThreeQuotes[0];
   quoteBodyText.textContent = quoteObj.quote;
 
-  // Render a brand-new random picture of Aneeza on the quote card!
   quotePhoto.src = getRandomImageUrl();
-
-  // Mark this quote as used
   markQuoteAsUsed(quoteObj.quote_id);
 
   if (isBirthdayDirect || isBirthdayToday) {
@@ -666,23 +641,23 @@ function renderQuote(stepNumber, isBirthdayDirect = false) {
     bdayBadge.classList.remove("hidden");
     nextStageBtn.textContent = "Salgirah Mubarak, Meri Jaan! 🥰";
     nextStageBtn.onclick = () => exitSanctuary();
-    logoutBtn.textContent = "Dil Mein Mehfooz Karo & Band Karo 🌙";
+    logoutBtn.textContent = "Dil mein mehfooz karo & app band karo 🌙";
   } else {
     quoteNumberTag.textContent = `Quote ${stepNumber} / 3`;
     bdayBadge.classList.add("hidden");
 
     if (stepNumber === 1) {
-      nextStageBtn.textContent = "Doosra Quote Kholein: Dil Ki Baat Likho 💌";
+      nextStageBtn.textContent = "Meri jaan doosra quote kholo 💌";
       nextStageBtn.onclick = () => startStage2();
       logoutBtn.classList.remove("hidden");
     } else if (stepNumber === 2) {
-      nextStageBtn.textContent = "Aakhri Teesra Quote Kholein: Romance Aur Touch ❤️‍🔥";
+      nextStageBtn.textContent = "Meri jaan aakhri teesra quote kholo ❤️";
       nextStageBtn.onclick = () => startStage3();
       logoutBtn.classList.remove("hidden");
     } else if (stepNumber === 3) {
-      nextStageBtn.textContent = "Mazeed Quotes Maango? (Click Karo) 😈";
+      nextStageBtn.textContent = "Aur quote chahiye meri jaan? (Yahan click karo) 😊";
       nextStageBtn.onclick = () => showRefusalScreen();
-      logoutBtn.textContent = "Sweet Kiss De Kar Band Karein 🌙";
+      logoutBtn.textContent = "Meri jaan abhi k liye kafi hai (App band karo) 🌙";
     }
   }
 
